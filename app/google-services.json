@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1080029742377",
+    "firebase_url": "https://greeningapp-a8b72-default-rtdb.firebaseio.com",
+    "project_id": "greeningapp-a8b72",
+    "storage_bucket": "greeningapp-a8b72.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1080029742377:android:116f4dffd69c90b38ba338",
+        "android_client_info": {
+          "package_name": "com.example.greeningapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1080029742377-ug41efhdvj6b0mqjc2t5de0o7jon8tt9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVqr69_GEPC5gOvY23NliT6oCoDRUd-8w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1080029742377-ug41efhdvj6b0mqjc2t5de0o7jon8tt9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
