@@ -52,6 +52,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/custom_btn"
             android:text="출석체크"
+            android:visibility="invisible"
             android:layout_marginTop="50dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/calendarView"
