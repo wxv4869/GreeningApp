@@ -45,7 +45,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private Button moreReviewsButton;
-    private ReviewAdapter adapter;
+    private ProductDetailReviewAdapter adapter;
     private ArrayList<Review> arrayList;
     private FirebaseDatabase database;
 
@@ -143,7 +143,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             }
         });
 
-        adapter = new ReviewAdapter(arrayList, this);
+        adapter = new ProductDetailReviewAdapter(arrayList, this);
         recyclerView.setAdapter(adapter);
 
         // 더 많은 리뷰 보기 버튼 클릭 시

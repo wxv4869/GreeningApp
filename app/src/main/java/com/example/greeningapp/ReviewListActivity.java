@@ -1,16 +1,11 @@
 package com.example.greeningapp;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,7 +21,7 @@ import java.util.List;
 public class ReviewListActivity extends AppCompatActivity {
 
     private RecyclerView reviewRecyclerView;
-    private ReviewAdapter reviewAdapter;
+    private ProductDetailReviewAdapter reviewAdapter;
     private List<Review> reviewList;
     private FirebaseDatabase database;
     private int pid;
@@ -48,7 +43,7 @@ public class ReviewListActivity extends AppCompatActivity {
         reviewRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         reviewList = new ArrayList<>();
-        reviewAdapter = new ReviewAdapter(reviewList, this);
+        reviewAdapter = new ProductDetailReviewAdapter(reviewList, this);
         reviewRecyclerView.setAdapter(reviewAdapter);
 
         // 인텐트에서 전달된 상품 ID 가져오기

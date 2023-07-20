@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder> {
+public class ProductDetailReviewAdapter extends RecyclerView.Adapter<ProductDetailReviewAdapter.ReviewViewHolder> {
 
     private List<Review> reviewList;
     private Context context;
 
-    public ReviewAdapter(List<Review> reviewList, Context context) {
+    public ProductDetailReviewAdapter(List<Review> reviewList, Context context) {
         this.reviewList = reviewList;
         this.context = context;
     }

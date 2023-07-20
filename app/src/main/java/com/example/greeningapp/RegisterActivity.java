@@ -1,5 +1,6 @@
 package com.example.greeningapp;
 
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,19 +23,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class RegisterActivity extends AppCompatActivity {
-
     long mNow;
     Date mDate;
     SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd");
-
     private FirebaseAuth mFirebaseAuth; // 파이어베이스 인증 처리
     private DatabaseReference mDatabaseRef; // 실시간 데이터베이스
     private EditText mEtEmail, mEtPwd; // 회원가입 입력필드
-
     private EditText mEtName, mEtPhone, mEtPostcode, mEtAddress;
     private Button mBtnRegister; // 회원가입 입력 버튼
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +48,6 @@ public class RegisterActivity extends AppCompatActivity {
         mEtPhone = findViewById(R.id.et_phone);
         mEtPostcode = findViewById(R.id.et_postcode);
         mEtAddress = findViewById(R.id.et_address);
-
-
 
         mBtnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,23 +67,28 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
-                            User account = new User();
+                            UserAccount account = new UserAccount();
                             account.setIdToken(firebaseUser.getUid());
                             account.setEmailId(firebaseUser.getEmail());
                             account.setPassword(strPwd);
+
                             account.setUsername(strName);
                             account.setPhone(strPhone);
                             account.setPostcode(strPostcode);
                             account.setAddress(strAddress);
+                            account.setRegdate(getTime());
                             account.setUpoint(0);
                             account.setSpoint(0);
-                            account.setRegdate(getTime());
-                            //setValue : database에 insert(삽입) 행위
-                            mDatabaseRef.child("User").child(firebaseUser.getUid()).setValue(account);
 
-                            Toast.makeText(RegisterActivity.this, "회원가입에 성공하셨습니다.", Toast.LENGTH_SHORT).show();
+                            //setValue : database에 insert(삽입) 행위
+                            // 회원 정보 데이터베이스에 저장
+                            mDatabaseRef.child(firebaseUser.getUid()).setValue(account);
+
                             Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                             startActivity(intent);
+                            finish();
+
+                            Toast.makeText(RegisterActivity.this, "회원가입에 성공하셨습니다.", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(RegisterActivity.this, "회원가입에 실패하셨습니다.", Toast.LENGTH_SHORT).show();
                         }
@@ -98,7 +97,6 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
-
     private String getTime(){
         mNow = System.currentTimeMillis();
         mDate = new Date(mNow);

@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,7 +26,7 @@ public class AttendanceActivity extends AppCompatActivity {
 
     private CalendarView calendarView;
     private Button btn_attendcheck;
-    private DatabaseReference attendanceRef; // Realtime Database 참조
+    private DatabaseReference userRef; // Realtime Database 참조
     private String idToken; // 사용자 ID
 
     @Override
@@ -34,24 +36,17 @@ public class AttendanceActivity extends AppCompatActivity {
 
         calendarView = findViewById(R.id.calendarView);
         btn_attendcheck = findViewById(R.id.btn_attendcheck);
-        attendanceRef = FirebaseDatabase.getInstance().getReference().child("UserAccount").child("User").child(idToken).child("attendance");
 
-        Intent intent = getIntent();
-        if (intent != null) {
-            idToken = intent.getStringExtra("idToken");
-            if (idToken != null) {
-                attendanceRef = FirebaseDatabase.getInstance().getReference().child("UserAccount").child("User").child(idToken).child("attendance");
-            }
+        // 파이어베이스에서 현재 로그인된 사용자의 데이터 참조
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (firebaseUser != null) {
+            idToken = firebaseUser.getUid();
+            userRef = FirebaseDatabase.getInstance().getReference().child("UserAccount").child(idToken);
+        } else {
+            // 로그인 정보가 없으면 로그인 화면으로 이동하거나 적절히 처리해야 합니다.
+            Toast.makeText(this, "로그인 정보를 찾을 수 없습니다. 다시 로그인해주세요.", Toast.LENGTH_SHORT).show();
+            finish();
         }
-
-        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
-            @Override
-            public void uncaughtException(@NonNull Thread thread, @NonNull Throwable throwable) {
-                // Uncaught exception occurred, print the stack trace to identify the issue
-                throwable.printStackTrace();
-                Toast.makeText(AttendanceActivity.this, "An error occurred, please try again.", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         // Set the calendar date change listener
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -62,11 +57,11 @@ public class AttendanceActivity extends AppCompatActivity {
 
                 // Check if attendance is already completed for the selected date
                 String selectedDate = formatDate(year, month, dayOfMonth);
-                attendanceRef.child(selectedDate).addListenerForSingleValueEvent(new ValueEventListener() {
+                userRef.child("attendance").child(selectedDate).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        boolean attendanceCompleted = dataSnapshot.getValue(Boolean.class);
-                        if (attendanceCompleted) {
+                        Boolean attendanceCompleted = dataSnapshot.getValue(Boolean.class);
+                        if (attendanceCompleted != null && attendanceCompleted) {
                             // If attendance is already completed, disable the button
                             btn_attendcheck.setEnabled(false);
                         } else {
@@ -97,11 +92,11 @@ public class AttendanceActivity extends AppCompatActivity {
                 String selectedDate = formatDate(year, month, dayOfMonth);
 
                 // Check if attendance is already completed for the selected date
-                attendanceRef.child(selectedDate).addListenerForSingleValueEvent(new ValueEventListener() {
+                userRef.child("attendance").child(selectedDate).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        boolean attendanceCompleted = dataSnapshot.getValue(Boolean.class);
-                        if (attendanceCompleted) {
+                        Boolean attendanceCompleted = dataSnapshot.getValue(Boolean.class);
+                        if (attendanceCompleted != null && attendanceCompleted) {
                             // If attendance is already completed, show a message
                             Toast.makeText(AttendanceActivity.this, "이미 출석체크를 완료했습니다.", Toast.LENGTH_SHORT).show();
                         } else {
@@ -133,6 +128,6 @@ public class AttendanceActivity extends AppCompatActivity {
 
     // Mark attendance as completed for the given date
     private void markAttendanceCompletedForDate(String date) {
-        attendanceRef.child(date).setValue(true);
+        userRef.child("attendance").child(date).setValue(true);
     }
 }

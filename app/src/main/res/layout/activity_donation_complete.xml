@@ -47,7 +47,7 @@
             android:layout_marginTop="16dp"
             android:text="총 0씨드로"
             android:textAlignment="center"
-            android:textColor="@color/subColor"
+            android:textColor="@color/back"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -57,7 +57,7 @@
             android:layout_gravity="center"
             android:text="기부가 완료 되었습니다."
             android:textAlignment="center"
-            android:textColor="@color/subColor"
+            android:textColor="@color/back"
             android:textSize="20sp"
             android:textStyle="bold" />
 
