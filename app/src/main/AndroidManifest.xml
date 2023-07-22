@@ -18,34 +18,7 @@
             android:name=".ReviewActivity"
             android:exported="false" />
         <activity
-            android:name=".ReviewWriteActivity"
-            android:exported="false" />
-        <activity
-            android:name=".WithdrawalActivity"
-            android:exported="false" />
-        <activity
-            android:name=".TermsOfUseActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SeedActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SearchActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PwdChangeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PointHistoryActivity"
-            android:exported="false" />
-        <activity
-            android:name=".OrderHistoryActivity"
-            android:exported="false" />
-        <activity
             android:name=".MyPageActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CheckInActivity"
             android:exported="false" />
         <activity
             android:name=".ChangeActivity"
