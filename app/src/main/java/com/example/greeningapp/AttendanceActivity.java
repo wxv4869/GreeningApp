@@ -25,6 +25,7 @@ import java.util.Date;
 public class AttendanceActivity extends AppCompatActivity {
 
     private CalendarView calendarView;
+    private TextView attendanceCompletedTextView;
     private Button btn_attendcheck;
     private Button btn_home;
     private DatabaseReference userRef; // Firebase Realtime Database 참조
@@ -36,6 +37,7 @@ public class AttendanceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_attendance);
 
         calendarView = findViewById(R.id.calendarView);
+        attendanceCompletedTextView = findViewById(R.id.tv_attendance_completed);
         btn_attendcheck = findViewById(R.id.btn_attendcheck);
         btn_home = findViewById(R.id.btn_home);
 
@@ -68,9 +70,8 @@ public class AttendanceActivity extends AppCompatActivity {
                 // 출석체크 버튼을 보이게 설정
                 btn_attendcheck.setVisibility(View.VISIBLE);
 
-                // 출석체크 완료 텍스트뷰는 invisible, 캘린더뷰는 visible로 설정
+                // 출석체크 완료 텍스트뷰는 보이게, 캘린더뷰는 안 보이게 설정
                 calendarView.setVisibility(View.VISIBLE);
-                TextView attendanceCompletedTextView = findViewById(R.id.tv_attendance_completed);
                 attendanceCompletedTextView.setVisibility(View.INVISIBLE);
 
                 // 선택된 날짜를 문자열로 변환하여 Firebase에서 해당 날짜의 출석체크 데이터 여부를 확인
@@ -83,8 +84,7 @@ public class AttendanceActivity extends AppCompatActivity {
                             // 출석체크가 이미 완료된 경우
                             btn_attendcheck.setEnabled(false);    // 출석체크 버튼을 사라지게 설정
                             calendarView.setAlpha(0.3f);    // 캘린더뷰를 반투명하게 설정
-                            TextView attendanceCompletedTextView = findViewById(R.id.tv_attendance_completed);
-                            attendanceCompletedTextView.setVisibility(View.VISIBLE);
+                            attendanceCompletedTextView.setVisibility(View.VISIBLE);    // 출석체크 완료 텍스트뷰 보이게 설정
                         } else {
                             // 출석체크가 완료되지 않은 경우
                             btn_attendcheck.setVisibility(View.VISIBLE);    // 출석체크 버튼을 보이게 설정
@@ -120,16 +120,17 @@ public class AttendanceActivity extends AppCompatActivity {
                         Boolean attendanceCompleted = dataSnapshot.getValue(Boolean.class);
                         if (attendanceCompleted != null && attendanceCompleted) {
                             // 출석체크가 이미 완료된 경우
-                            Toast.makeText(AttendanceActivity.this, "이미 출석체크를 완료했습니다.", Toast.LENGTH_SHORT).show();
+                            attendanceCompletedTextView.setVisibility(View.VISIBLE);    // 출석체크 완료 텍스트뷰 보이게 설정
                             btn_attendcheck.setEnabled(false);
-                            // 캘린더뷰는 invisible, 출석체크 완료 텍스트뷰는 visible로 설정
+                            // 캘린더뷰는 안 보이게, 출석체크 완료 텍스트뷰는 보이게 설정
                             calendarView.setAlpha(0.3f);    // 캘린더뷰를 반투명하게 설정
                         } else {
                             // 출석체크가 완료되지 않은 경우
                             // 출석체크 완료 처리하고 메시지 표시
                             markAttendanceCompletedForDate(selectedDate);
-                            Toast.makeText(AttendanceActivity.this, "출석체크 완료", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AttendanceActivity.this, "출석체크가 완료되었습니다!", Toast.LENGTH_SHORT).show();
                             btn_attendcheck.setEnabled(false);
+                            calendarView.setAlpha(0.3f);    // 캘린더뷰를 반투명하게 설정
                         }
                     }
 
