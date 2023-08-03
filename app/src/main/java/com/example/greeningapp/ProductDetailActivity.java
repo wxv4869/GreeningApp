@@ -135,6 +135,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                     count++;    // 데이터 개수 증가
                 }
                 adapter.notifyDataSetChanged();    // 어댑터에 데이터 변경 알림
+//                return false;
             }
 
             public void onCancelled(@NonNull DatabaseError databaseError) {

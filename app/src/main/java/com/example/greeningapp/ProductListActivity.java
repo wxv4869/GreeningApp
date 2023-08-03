@@ -49,6 +49,7 @@ public class ProductListActivity extends AppCompatActivity {
                     arrayList.add(product);    // 담은 데이터들을 어레이리스트에 추가하여 리사이클러뷰로 전송할 준비
                 }
                 adapter.notifyDataSetChanged();    // 어댑터에 데이터 변경 알림을 보내어 업데이트
+//                return false;
             }
 
             @Override

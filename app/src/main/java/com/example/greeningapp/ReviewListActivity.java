@@ -65,6 +65,7 @@ public class ReviewListActivity extends AppCompatActivity {
                     reviewList.add(review);
                 }
                 reviewAdapter.notifyDataSetChanged();    // 어댑터에 데이터 변경 알림
+//                return false;
             }
 
             @Override
