@@ -57,8 +57,38 @@ public class AttendanceActivity extends AppCompatActivity {
         if (firebaseUser != null) {
             idToken = firebaseUser.getUid();
             userRef = FirebaseDatabase.getInstance().getReference().child("UserAccount").child(idToken);
+
+            // 현재 날짜 가져오기
+            Calendar currentDateCalendar = Calendar.getInstance();
+            int currentYear = currentDateCalendar.get(Calendar.YEAR);
+            int currentMonth = currentDateCalendar.get(Calendar.MONTH);
+            int currentDayOfMonth = currentDateCalendar.get(Calendar.DAY_OF_MONTH);
+
+            // 현재 날짜를 문자열로 변환하여 Firebase에서 해당 날짜의 출석체크 데이터 여부를 확인
+            String currentDate = formatDate(currentYear, currentMonth, currentDayOfMonth);
+            userRef.child("attendance").child(currentDate).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Boolean attendanceCompleted = dataSnapshot.getValue(Boolean.class);
+                    if (attendanceCompleted != null && attendanceCompleted) {
+                        // 출석체크가 이미 완료된 경우
+                        attendanceCompletedTextView.setVisibility(View.VISIBLE);    // 출석체크 완료 텍스트뷰 보이게 설정
+                        btn_attendcheck.setEnabled(false);    // 출석체크 버튼 비활성화
+                        calendarView.setAlpha(0.3f);    // 캘린더뷰 반투명하게 설정
+                    } else {
+                        // 출석체크가 완료되지 않은 경우
+                        btn_attendcheck.setEnabled(true);    // 출석체크 버튼 활성화
+                        calendarView.setAlpha(1.0f);    // 캘린더뷰를 다시 불투명하게 설정
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    // 데이터베이스 오류 처리
+                }
+            });
         } else {
-            // 로그인 정보가 없으면 로그인 화면으로 이동하거나 적절히 처리해야 합니다.
+            // 로그인 오류
             Toast.makeText(this, "로그인 정보를 찾을 수 없습니다. 다시 로그인해주세요.", Toast.LENGTH_SHORT).show();
             finish();
         }
@@ -68,9 +98,8 @@ public class AttendanceActivity extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 // 출석체크 버튼을 보이게 설정
-                btn_attendcheck.setVisibility(View.VISIBLE);
-
-                // 출석체크 완료 텍스트뷰는 보이게, 캘린더뷰는 안 보이게 설정
+                btn_attendcheck.setEnabled(true);
+                // 캘린더뷰 보이게, 출석체크 완료 텍스트뷰 안 보이게 설정
                 calendarView.setVisibility(View.VISIBLE);
                 attendanceCompletedTextView.setVisibility(View.INVISIBLE);
 
@@ -82,12 +111,12 @@ public class AttendanceActivity extends AppCompatActivity {
                         Boolean attendanceCompleted = dataSnapshot.getValue(Boolean.class);
                         if (attendanceCompleted != null && attendanceCompleted) {
                             // 출석체크가 이미 완료된 경우
-                            btn_attendcheck.setEnabled(false);    // 출석체크 버튼을 사라지게 설정
-                            calendarView.setAlpha(0.3f);    // 캘린더뷰를 반투명하게 설정
+                            btn_attendcheck.setEnabled(false);    // 출석체크 버튼 비활성화
+                            calendarView.setAlpha(0.3f);    // 캘린더뷰 반투명하게 설정
                             attendanceCompletedTextView.setVisibility(View.VISIBLE);    // 출석체크 완료 텍스트뷰 보이게 설정
                         } else {
                             // 출석체크가 완료되지 않은 경우
-                            btn_attendcheck.setVisibility(View.VISIBLE);    // 출석체크 버튼을 보이게 설정
+                            btn_attendcheck.setEnabled(true);    // 출석체크 버튼 활성화
                             calendarView.setAlpha(1.0f);    // 캘린더뷰를 다시 불투명하게 설정
                         }
                     }
@@ -104,41 +133,49 @@ public class AttendanceActivity extends AppCompatActivity {
         btn_attendcheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 선택된 날짜의 밀리초값을 가져와서 Calendar 객체로 변환
+                // 현재 날짜 가져오기
+                Calendar currentDateCalendar = Calendar.getInstance();
+                int currentYear = currentDateCalendar.get(Calendar.YEAR);
+                int currentMonth = currentDateCalendar.get(Calendar.MONTH);
+                int currentDayOfMonth = currentDateCalendar.get(Calendar.DAY_OF_MONTH);
+
+                // 캘린더뷰에서 선택한 날짜 가져오기
                 long selectedDateInMillis = calendarView.getDate();
                 Calendar selectedCalendar = Calendar.getInstance();
                 selectedCalendar.setTimeInMillis(selectedDateInMillis);
-                int year = selectedCalendar.get(Calendar.YEAR);
-                int month = selectedCalendar.get(Calendar.MONTH);
-                int dayOfMonth = selectedCalendar.get(Calendar.DAY_OF_MONTH);
-                // 선택된 날짜를 문자열로 변환햐여 Firebase에 출석체크 완료로 데이터 기록
-                String selectedDate = formatDate(year, month, dayOfMonth);
+                int selectedYear = selectedCalendar.get(Calendar.YEAR);
+                int selectedMonth = selectedCalendar.get(Calendar.MONTH);
+                int selectedDayOfMonth = selectedCalendar.get(Calendar.DAY_OF_MONTH);
 
-                userRef.child("attendance").child(selectedDate).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        Boolean attendanceCompleted = dataSnapshot.getValue(Boolean.class);
-                        if (attendanceCompleted != null && attendanceCompleted) {
-                            // 출석체크가 이미 완료된 경우
-                            attendanceCompletedTextView.setVisibility(View.VISIBLE);    // 출석체크 완료 텍스트뷰 보이게 설정
-                            btn_attendcheck.setEnabled(false);
-                            // 캘린더뷰는 안 보이게, 출석체크 완료 텍스트뷰는 보이게 설정
-                            calendarView.setAlpha(0.3f);    // 캘린더뷰를 반투명하게 설정
-                        } else {
-                            // 출석체크가 완료되지 않은 경우
-                            // 출석체크 완료 처리하고 메시지 표시
-                            markAttendanceCompletedForDate(selectedDate);
-                            Toast.makeText(AttendanceActivity.this, "출석체크가 완료되었습니다!", Toast.LENGTH_SHORT).show();
-                            btn_attendcheck.setEnabled(false);
-                            calendarView.setAlpha(0.3f);    // 캘린더뷰를 반투명하게 설정
+                if (currentYear == selectedYear && currentMonth == selectedMonth && currentDayOfMonth == selectedDayOfMonth) {
+                    // 선택한 날짜가 현재 날짜와 일치하면 출석체크 가능
+                    String selectedDate = formatDate(selectedYear, selectedMonth, selectedDayOfMonth);
+                    userRef.child("attendance").child(selectedDate).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            Boolean attendanceCompleted = dataSnapshot.getValue(Boolean.class);
+                            if (attendanceCompleted != null && attendanceCompleted) {
+                                // 출석체크가 이미 완료된 경우 메시지와 뷰를 변경
+                                Toast.makeText(AttendanceActivity.this, "출석체크는 당일 날짜에만 가능합니다.", Toast.LENGTH_SHORT).show();    // 요상한 부분..
+                            } else {
+                                // 출석체크가 완료되지 않은 경우 (출석체크 완료 처리하고 Toast메시지 출력)
+                                markAttendanceCompletedForDate(selectedDate);
+                                Toast.makeText(AttendanceActivity.this, "출석체크가 완료되었습니다!", Toast.LENGTH_SHORT).show();
+                                btn_attendcheck.setEnabled(false);    // 출석체크 버튼 비활성화
+                                calendarView.setAlpha(0.3f);    // 캘린더뷰 반투명하게 설정
+                                attendanceCompletedTextView.setVisibility(View.VISIBLE);    // 출석체크 완료 텍스트뷰 보이게 설정
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        // 데이터베이스 오류 처리
-                    }
-                });
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            // 데이터베이스 오류 처리
+                        }
+                    });
+                } else {
+                    // 선택한 날짜가 현재 날짜와 일치하지 않을 때 메시지 표시
+                    Toast.makeText(AttendanceActivity.this, "출석체크는 당일 날짜에만 가능합니다.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

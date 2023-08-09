@@ -58,7 +58,7 @@
                 android:id="@+id/tv_attendance_completed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="선택된 날짜는\n이미 출석체크가 완료되었습니다 :)"
+                android:text="해당 날짜는\n 출석체크가 완료되었습니다 :)"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="#2F5E29"
