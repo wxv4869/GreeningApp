@@ -1,4 +1,10 @@
 package com.example.greeningapp;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -9,46 +15,53 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import androidx.appcompat.widget.Toolbar;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ProductDetailActivity extends AppCompatActivity {
 
-    private ImageView pimg;
-    private ImageView pdetailimg;
-    private TextView pname;
-    private TextView pprice;
-    private TextView stock;
-
-    private Button btnMinus;
-    private Button btnPlus;
-    private TextView quantityCount;
-
-    private int count = 0;
+    TextView quantity;
+    int totalQuantity = 1;
+    int totalPrice = 0;
 
     private int pid;
+
+    ImageView detailedImg;
+    ImageView detailedLongImg;
+    TextView price, description, stock, name;
+    Button addToCart, buyNow;
+    ImageView addItem, removeItem;
+
+    Product product = null;
+
+    private FirebaseDatabase database;
+    private DatabaseReference databaseReference;
+    private FirebaseAuth auth;
+
+    // 리뷰
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private Button moreReviewsButton;
     private ProductDetailReviewAdapter adapter;
     private ArrayList<Review> arrayList;
-    private FirebaseDatabase database;
 
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
@@ -59,53 +72,44 @@ public class ProductDetailActivity extends AppCompatActivity {
         actionBar.setTitle("");    // 툴바 제목 설정
         actionBar.setDisplayHomeAsUpEnabled(true);    // 앱바에 뒤로가기 버튼 만들기
 
-        // 수량 조절 버튼 및 텍스트뷰 초기화
-        btnMinus = findViewById(R.id.btn_minus);
-        btnPlus = findViewById(R.id.btn_plus);
-        quantityCount = findViewById(R.id.quantity_count);
 
-        // 수량 감소 버튼 클릭 시 이벤트 처리
-        btnMinus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                decreaseQuantity();
-            }
-        });
+        database = FirebaseDatabase.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference("CurrentUser");
+        String cartID = databaseReference.push().getKey();
 
-        // 수량 증가 버튼 클릭 시 이벤트 처리
-        btnPlus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                increaseQuantity();
-            }
-        });
+        auth = FirebaseAuth.getInstance();
+        //상품 리스트에서 상품 상세 페이지로 데이터 가져오기
+        final Object object = getIntent().getSerializableExtra("detail");
+        if(object instanceof Product){
+            product = (Product) object;
+        }
 
-        // Intent에서 전달된 Product 객체와 데이터 가져오기
-        Intent intent = getIntent();
-        if (intent != null && intent.hasExtra("Product")) {
-            Product product = intent.getParcelableExtra("Product");
+        quantity = findViewById(R.id.quantity);
 
-            // 상품 상세 정보를 표시할 뷰 초기화
-            pimg = findViewById(R.id.pimg);
-            pname = findViewById(R.id.pname);
-            pprice = findViewById(R.id.pprice);
-            stock = findViewById(R.id.stock);
-            pdetailimg = findViewById(R.id.pdetailimg);
 
-            pid = intent.getIntExtra("pid", 0);
+        detailedImg = findViewById(R.id.detailed_img);
+        addItem = findViewById(R.id.add_item);
+        removeItem = findViewById(R.id.remove_item);
+        detailedLongImg = findViewById(R.id.detail_longimg);
 
-            // Product 객체의 데이터를 상세 정보 페이지에 표시
-            Glide.with(this)
-                    .load(product.getPimg())
-                    .into(pimg);
-            Glide.with(this)
-                    .load(product.getPdetailimg())
-                    .into(pdetailimg);
-            pname.setText(product.getPname());
-            pprice.setText("가격 | " + String.valueOf(product.getPprice()) + "원");
-            stock.setText("재고수량 | " + String.valueOf(product.getStock()) + "개");
 
-            pid = intent.getIntExtra("pid", 0);
+        price = findViewById(R.id.detail_price);
+        stock = findViewById(R.id.detail_stock);
+
+        name = findViewById(R.id.detailed_name);
+
+        if (product != null) {
+            Glide.with(getApplicationContext()).load(product.getPimg()).into(detailedImg);
+//            description.setText(product.getDescription());
+            price.setText(String.valueOf(product.getPprice()));
+            stock.setText("( 재고: " + String.valueOf(product.getStock()) + " )");
+            name.setText(product.getPname());
+            Glide.with(getApplicationContext()).load(product.getPdetailimg()).into(detailedLongImg);
+
+            totalPrice= product.getPprice() * totalQuantity;
+
+            pid = product.getPid();
+
         }
 
         // 더 많은 리뷰 보기 버튼 및 리사이클러뷰 초기화
@@ -116,10 +120,8 @@ public class ProductDetailActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
-        arrayList = new ArrayList<>();    // 리뷰 데이터 초기화
+        arrayList = new ArrayList<>();
 
-        // Firebase 데이터베이스 초기화 및 리뷰 데이터 조회
-        database = FirebaseDatabase.getInstance();
         Query reviewQuery = database.getReference("Review").orderByChild("pid").equalTo(pid);
         reviewQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -135,7 +137,6 @@ public class ProductDetailActivity extends AppCompatActivity {
                     count++;    // 데이터 개수 증가
                 }
                 adapter.notifyDataSetChanged();    // 어댑터에 데이터 변경 알림
-//                return false;
             }
 
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -143,6 +144,8 @@ public class ProductDetailActivity extends AppCompatActivity {
                 Log.e("ProductDetailActivity", String.valueOf(databaseError.toException()));    // 에러문 출력
             }
         });
+
+
 
         adapter = new ProductDetailReviewAdapter(arrayList, this);
         recyclerView.setAdapter(adapter);
@@ -152,39 +155,97 @@ public class ProductDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // 리뷰 목록 액티비티로 전환
-                Intent intent = new Intent(ProductDetailActivity.this, ReviewListActivity.class);
+                Toast.makeText(ProductDetailActivity.this, "리뷰 화면으로 이동", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ProductDetailActivity.this, ReviewActivity.class);
                 intent.putExtra("pid", pid);
                 startActivity(intent);
             }
         });
-    }
 
+
+
+        addToCart = findViewById(R.id.add_to_cart);
+        addToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                addedToCart();
+                final HashMap<String, Object> cartMap = new HashMap<>();
+                FirebaseUser firebaseUser = auth.getCurrentUser();
+                cartMap.put("productName", product.getPname());
+                cartMap.put("productPrice", price.getText().toString());
+                cartMap.put("totalQuantity", quantity.getText().toString());
+                cartMap.put("totalPrice", totalPrice * totalQuantity);
+                cartMap.put("pId", product.getPid());
+                cartMap.put("productImg", product.getPimg());
+                cartMap.put("productStock", product.getStock());
+                Log.d("DetailActivity", product.getPid()+"");
+
+                databaseReference.child(firebaseUser.getUid()).child("AddToCart").child(cartID).setValue(cartMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(ProductDetailActivity.this, "Add To A Cart", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(ProductDetailActivity.this, CartActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+
+            }
+        });
+
+        buyNow = (Button) findViewById(R.id.buyNow);
+        buyNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProductDetailActivity.this, BuyNowActivity.class);
+
+
+
+                Bundle bundle = new Bundle();
+                bundle.putString("productName", product.getPname());
+                bundle.putString("productPrice", price.getText().toString());
+                bundle.putString("totalQuantity", quantity.getText().toString());
+                bundle.putInt("totalPrice", totalPrice * totalQuantity);
+                bundle.putInt("pId", product.getPid());
+                bundle.putString("productImg", product.getPimg());
+                bundle.putInt("productStock", product.getStock());
+
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
+        addItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(totalQuantity < 10){
+                    totalQuantity++;
+                    quantity.setText(String.valueOf(totalQuantity));
+                }
+            }
+        });
+        removeItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(totalQuantity > 0){
+                    totalQuantity--;
+                    quantity.setText(String.valueOf(totalQuantity));
+                }
+            }
+        });
+    }
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId ()) {
             case android.R.id.home:    //툴바 뒤로가기버튼 눌렸을 때 동작
                 // ProductListActivity로 전환
-                Intent intent = new Intent(ProductDetailActivity.this, ProductListActivity.class);
+                Intent intent = new Intent(ProductDetailActivity.this, CategoryActivity.class);
                 startActivity(intent);
                 finish ();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
-        }
-    }
-
-    private void increaseQuantity() {
-        // btnPlus 클릭 시 quantityCount 증가
-        count++;
-        quantityCount.setText(String.valueOf(count));
-    }
-
-    private void decreaseQuantity() {
-        // btnMinus 클릭 시 quantityCount 감소
-        if (count > 0) {
-            count--;
-            quantityCount.setText(String.valueOf(count));
         }
     }
 }

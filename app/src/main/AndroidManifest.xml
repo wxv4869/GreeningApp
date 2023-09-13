@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools" >
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -13,18 +13,57 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GreeningApp"
-        tools:targetApi="31">
+        tools:targetApi="31" >
         <activity
-            android:name=".ReviewActivity"
+            android:name=".CategoryActivity"
             android:exported="false" />
         <activity
-            android:name=".MyPageActivity"
+            android:name=".OrderHistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PointHistoryActivity"
             android:exported="false" />
         <activity
             android:name=".ChangeActivity"
             android:exported="false" />
         <activity
-            android:name=".ShoppingMainActivity"
+            android:name=".DoCertificateDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DonationCertificateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AttendanceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BuyNowActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QuizActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ReviewWriteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ReviewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".WithdrawalActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MyPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DonationCompleteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DonationDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DonationMainActivity"
             android:exported="false" />
         <activity
             android:name=".OrderCompleteActivity"
@@ -33,20 +72,20 @@
             android:name=".OrderActivity"
             android:exported="false" />
         <activity
-            android:name=".DonationMainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".DonationDetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".DonationCompleteActivity"
-            android:exported="false" />
-        <activity
             android:name=".CartActivity"
             android:exported="false" />
         <activity
+            android:name=".ProductDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ShoppingMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -54,19 +93,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RegisterActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ProductListActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ProductDetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ReviewListActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AttendanceActivity"
+            android:name=".MainActivity"
             android:exported="false" />
     </application>
 

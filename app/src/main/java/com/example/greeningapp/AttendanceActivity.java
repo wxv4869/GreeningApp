@@ -46,7 +46,7 @@ public class AttendanceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // MainActivity로 이동하는 Intent 생성 (임시로 ProductListActivity로 이동하도록 설정함)
-                Intent intent = new Intent(AttendanceActivity.this, ProductListActivity.class);
+                Intent intent = new Intent(AttendanceActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish(); // AttendanceActivity는 더 이상 필요하지 않으므로 종료함
             }
@@ -56,7 +56,7 @@ public class AttendanceActivity extends AppCompatActivity {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         if (firebaseUser != null) {
             idToken = firebaseUser.getUid();
-            userRef = FirebaseDatabase.getInstance().getReference().child("UserAccount").child(idToken);
+            userRef = FirebaseDatabase.getInstance().getReference().child("User").child(idToken);
 
             // 현재 날짜 가져오기
             Calendar currentDateCalendar = Calendar.getInstance();

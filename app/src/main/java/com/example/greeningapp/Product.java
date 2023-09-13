@@ -1,35 +1,36 @@
 package com.example.greeningapp;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import java.io.Serializable;
 
-public class Product implements Parcelable {
-
-    private int pid;
+public class Product implements Serializable {
     private String pimg;
-    private String pdetailimg;
     private String pname;
     private int pprice;
+    private String pdetailimg;
+    private int pid;
     private int stock;
+    private int category;
 
-    public Product() {
+    private String psay;
+    private String psearch;
+
+    public String getPsay() {
+        return psay;
     }
 
-    public Product(int pid, String pimg, String pdetailimg, String pname, int pprice, int stock) {
-        this.pid = pid;
-        this.pimg = pimg;
-        this.pdetailimg = pdetailimg;
-        this.pname = pname;
-        this.pprice = pprice;
-        this.stock = stock;
+    public void setPsay(String psay) {
+        this.psay = psay;
     }
 
-    public int getPid() {
-        return pid;
+    public String getPsearch() {
+        return psearch;
     }
 
-    public void setPid(int pid) {
-        this.pid = pid;
+    public void setPsearch(String psearch) {
+        this.psearch = psearch;
+    }
+
+    public Product(){
     }
 
     public String getPimg() {
@@ -38,14 +39,6 @@ public class Product implements Parcelable {
 
     public void setPimg(String pimg) {
         this.pimg = pimg;
-    }
-
-    public String getPdetailimg() {
-        return pdetailimg;
-    }
-
-    public void setPdetailimg(String pdetailimg) {
-        this.pdetailimg = pdetailimg;
     }
 
     public String getPname() {
@@ -64,6 +57,22 @@ public class Product implements Parcelable {
         this.pprice = pprice;
     }
 
+    public String getPdetailimg() {
+        return pdetailimg;
+    }
+
+    public void setPdetailimg(String pdetailimg) {
+        this.pdetailimg = pdetailimg;
+    }
+
+    public int getPid() {
+        return pid;
+    }
+
+    public void setPid(int pid) {
+        this.pid = pid;
+    }
+
     public int getStock() {
         return stock;
     }
@@ -72,37 +81,11 @@ public class Product implements Parcelable {
         this.stock = stock;
     }
 
-    protected Product(Parcel in) {
-        pimg = in.readString();
-        pdetailimg = in.readString();
-        pname = in.readString();
-        pprice = in.readInt();
-        stock = in.readInt();
+    public int getCategory() {
+        return category;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(pimg);
-        dest.writeString(pdetailimg);
-        dest.writeString(pname);
-        dest.writeInt(pprice);
-        dest.writeInt(stock);
+    public void setCategory(int category) {
+        this.category = category;
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<Product> CREATOR = new Creator<Product>() {
-        @Override
-        public Product createFromParcel(Parcel in) {
-            return new Product(in);
-        }
-
-        @Override
-        public Product[] newArray(int size) {
-            return new Product[size];
-        }
-    };
 }
