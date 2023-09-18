@@ -84,10 +84,8 @@ public class DonationMainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // 파이어베이스 데이터베이스의 데이터를 받아오는 곳
                 // 회원 정보 테이블에서 sPoint 데이터 가져와서 뿌리기
-
                 User user = dataSnapshot.getValue(User.class); //  만들어 뒀던 Product 객체에 데이터를 담는다.
                 donationPoint.setText(user.getSpoint() + " 씨드");
-
             }
 
             @Override

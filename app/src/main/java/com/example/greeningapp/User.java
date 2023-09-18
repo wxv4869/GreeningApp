@@ -82,10 +82,6 @@ public class User {
         this.regdate = regdate;
     }
 
-
-
-
-
     public String getIdToken() {
         return idToken;
     }
