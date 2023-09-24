@@ -4,23 +4,13 @@ public class User {
     private String idToken; //Firbase Uid(고유 토큰 정보)
     private String emailId; // 이메일 아이디
     private String password; // 비밀번호
-
     private String username;
-
     private String phone;
-
     private String postcode;
-
     private String address;
-
     private int spoint;
-
     private int upoint;
-
-    private String attendance;
-
     private String regdate;
-
     private String doquiz;
 
     public User() {
@@ -112,13 +102,5 @@ public class User {
 
     public void setDoquiz(String doquiz) {
         this.doquiz = doquiz;
-    }
-
-    public String getAttendance() {
-        return attendance;
-    }
-
-    public void setAttendance(String attendance) {
-        this.attendance = attendance;
     }
 }

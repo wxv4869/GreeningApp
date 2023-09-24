@@ -1,11 +1,5 @@
 package com.example.greeningapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +8,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.greeningapp.Cart;
+import com.example.greeningapp.OrderAdapter;
+import com.example.greeningapp.OrderCompleteActivity;
+import com.example.greeningapp.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,7 +40,6 @@ public class OrderActivity extends AppCompatActivity {
     Date mDate;
     SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 
-
     FirebaseDatabase firebaseDatabase;
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
@@ -49,24 +52,17 @@ public class OrderActivity extends AppCompatActivity {
     private ArrayList<Cart> arrayList;
 
     Product product = null;
-
     private TextView overTotalAmount;
-
     private TextView orderName;
     private TextView orderPhone;
     private TextView orderAddress;
-
     private TextView orderPostcode;
-
     private String strOrderName;
     private String strOrderPhone;
     private String strOrderAddress;
-
     private String strOrderPostcode;
     private int userSPoint;
-
     int total = 0;
-
     Button btnPayment;
 
     @Override
@@ -124,7 +120,6 @@ public class OrderActivity extends AppCompatActivity {
                 userSPoint = user.getSpoint();
             }
 
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // 디비를 가져오던 중 에러 발생 시
@@ -148,8 +143,6 @@ public class OrderActivity extends AppCompatActivity {
                     total += cart.getTotalPrice();
                     Log.d("OrderActivity", total+"");
                     overTotalAmount.setText(String.valueOf(total));
-
-
                 }
                 adapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침
             }
@@ -173,7 +166,6 @@ public class OrderActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼, 디폴트로 true만 해도 백버튼이 생김
 
         List<Cart> list = (ArrayList<Cart>) getIntent().getSerializableExtra("itemList");
-
         btnPayment = (Button) findViewById(R.id.btnPayment);
 
         btnPayment.setOnClickListener(new View.OnClickListener() {
@@ -202,7 +194,6 @@ public class OrderActivity extends AppCompatActivity {
                         cartMap.put("doReview", "No");
                         cartMap.put("orderImg", model.getProductImg());
                         cartMap.put("eachOrderedId", eachOrderedId);
-
 
                         // 결제 된 재고만큼 기존 재고에서 변경한 값을 변수에 저장
                         int totalStock = model.getProductStock() - Integer.valueOf(model.getTotalQuantity());
@@ -246,10 +237,35 @@ public class OrderActivity extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
 //                                        Toast.makeText(OrderActivity.this, "쇼핑 포인트 지급 완료", Toast.LENGTH_SHORT).show();
+                                        databaseReference2.child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                User user = snapshot.getValue(User.class);
+                                                final HashMap<String, Object> pointMap = new HashMap<>();
+                                                pointMap.put("pointName", "씨드 적립 - 상품 구매");
+                                                pointMap.put("pointDate", getTime());
+                                                pointMap.put("type", "savepoint");
+                                                pointMap.put("point", total * 0.01);
+                                                pointMap.put("userName", user.getUsername());
+
+                                                String pointID = databaseReference.child(firebaseUser.getUid()).child("MyPoint").push().getKey();
+
+                                                databaseReference.child(firebaseUser.getUid()).child("MyPoint").child(pointID).setValue(pointMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        Toast.makeText(OrderActivity.this, "상품 구매 포인트 내역 저장" , Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+
                                     }
                                 });
-
-
                             }
                         });
 
@@ -261,13 +277,9 @@ public class OrderActivity extends AppCompatActivity {
                         startActivity(intent);
 
                     }
-
-
                 }
-
             }
         });
-
     }
 
     private String getTime(){

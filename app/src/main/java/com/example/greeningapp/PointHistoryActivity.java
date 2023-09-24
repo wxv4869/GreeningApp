@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -36,13 +36,11 @@ public class PointHistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_point_history);
 
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        ActionBar actionBar = getSupportActionBar();
-//        if (actionBar != null) {
-//            actionBar.setTitle("");
-//            actionBar.setDisplayHomeAsUpEnabled(true);
-//        }
+        Toolbar toolbar = findViewById(R.id.toolbar_pointHistory);
+        setSupportActionBar(toolbar);    // 액티비티의 앱바로 지정
+        ActionBar actionBar = getSupportActionBar();    // 앱바 제어를 위해 툴바 액세스
+        actionBar.setTitle("");    // 툴바 제목 설정
+        actionBar.setDisplayHomeAsUpEnabled(true);    // 앱바에 뒤로가기 버튼 만들기
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
@@ -80,7 +78,7 @@ public class PointHistoryActivity extends AppCompatActivity {
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     // DB를 가져오던 중 에러 발생 시
-                    Log.e("ProductDetailActivity", String.valueOf(databaseError.toException()));    // 에러문 출력
+                    Log.e("PointHistoryActivity", String.valueOf(databaseError.toException()));    // 에러문 출력
                 }
             });
         }

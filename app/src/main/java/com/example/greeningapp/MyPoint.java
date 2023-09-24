@@ -2,12 +2,21 @@ package com.example.greeningapp;
 
 public class MyPoint {
     private String userName;
-    private String donationName;
-    private int donationPoint;
-    private String donationDate;
+    private String pointName;
+    private int point;
+    private String pointDate;
+    private String type;
 
     public MyPoint() {
 
+    }
+
+    public MyPoint(String userName, String pointName, int point, String pointDate, String type) {
+        this.userName = userName;
+        this.pointName = pointName;
+        this.point = point;
+        this.pointDate = pointDate;
+        this.type = type;
     }
 
     public String getUserName() {
@@ -18,28 +27,32 @@ public class MyPoint {
         this.userName = userName;
     }
 
-    public String getDonationName() {
-        return donationName;
+    public String getPointName() {
+        return pointName;
     }
 
-    public void setDonationName(String donationName) {
-        this.donationName = donationName;
+    public void setPointName(String pointName) {
+        this.pointName = pointName;
     }
 
-    public int getDonationPoint() {
-        return donationPoint;
+    public int getPoint() {
+        return point;
     }
 
-    public void setDonationPoint(int donationPoint) {
-        this.donationPoint = donationPoint;
+    public void setPoint(int point) {
+        this.point = point;
     }
 
-    public String getDonationDate() {
-        return donationDate;
+    public String getPointDate() {
+        return pointDate;
     }
 
-    public void setDonationDate(String donationDate) {
-        this.donationDate = donationDate;
+    public void setPointDate(String pointDate) {
+        this.pointDate = pointDate;
     }
+
+    public String getType() { return type; }
+
+    public void setType(String type) { this.type = type; }
 }
 

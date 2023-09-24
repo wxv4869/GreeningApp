@@ -45,9 +45,9 @@ public class PointHistoryAdapter extends RecyclerView.Adapter<PointHistoryAdapte
     public void onBindViewHolder(@NonNull PointHistoryAdapter.PointHistoryViewHolder holder, @SuppressLint("recyclerview_pointHistory") int position) {
         MyPoint myPoint = pointHistoryList.get(position);
 
-        holder.donationNameTextView.setText("기부 - " + myPoint.getDonationName());
-        holder.donationDateTextView.setText(myPoint.getDonationDate());
-        holder.donationPointTextView.setText(myPoint.getDonationPoint() + "씨드");
+        holder.pointNameTextView.setText(myPoint.getPointName());
+        holder.pointDateTextView.setText(myPoint.getPointDate());
+        holder.pointTextView.setText(String.valueOf(myPoint.getPoint()));
     }
 
     @Override
@@ -59,22 +59,22 @@ public class PointHistoryAdapter extends RecyclerView.Adapter<PointHistoryAdapte
     }
 
     public class PointHistoryViewHolder extends RecyclerView.ViewHolder {
-        private TextView donationNameTextView;
-        private TextView donationDateTextView;
-        private TextView donationPointTextView;
+        private TextView pointNameTextView;
+        private TextView pointDateTextView;
+        private TextView pointTextView;
 
         public PointHistoryViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            donationNameTextView = itemView.findViewById(R.id.donationNameTextView);
-            donationDateTextView = itemView.findViewById(R.id.donationDateTextView);
-            donationPointTextView = itemView.findViewById(R.id.donationPointTextView);
+            pointNameTextView = itemView.findViewById(R.id.pointNameTextView);
+            pointDateTextView = itemView.findViewById(R.id.pointDateTextView);
+            pointTextView = itemView.findViewById(R.id.pointTextView);
         }
 
         public void bind(MyPoint myPoint) {
-            donationNameTextView.setText(myPoint.getDonationName());
-            donationDateTextView.setText(myPoint.getDonationDate());
-            donationPointTextView.setText(String.valueOf(myPoint.getDonationPoint()));
+            pointNameTextView.setText(myPoint.getPointName());
+            pointDateTextView.setText(myPoint.getPointDate());
+            pointTextView.setText(String.valueOf(myPoint.getPoint()));
         }
     }
 }

@@ -14,10 +14,10 @@
         android:padding="15dp">
 
         <TextView
-            android:id="@+id/donationNameTextView"
+            android:id="@+id/pointNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Donation Name"
+            android:text="Point Name"
             android:textSize="18sp"
             android:textColor="@color/black"
             android:layout_marginStart="5dp"
@@ -25,19 +25,19 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
-            android:id="@+id/donationDateTextView"
+            android:id="@+id/pointDateTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Donation Date"
+            android:text="Point Date"
             android:textSize="16sp"
             android:textColor="@android:color/darker_gray"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="15dp"
-            app:layout_constraintStart_toStartOf="@+id/donationNameTextView"
-            app:layout_constraintTop_toBottomOf="@+id/donationNameTextView" />
+            app:layout_constraintStart_toStartOf="@+id/pointNameTextView"
+            app:layout_constraintTop_toBottomOf="@+id/pointNameTextView" />
 
         <TextView
-            android:id="@+id/donationPointTextView"
+            android:id="@+id/pointTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="씨드"
