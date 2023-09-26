@@ -30,8 +30,6 @@ import java.util.HashMap;
 
 public class BuyNowActivity extends AppCompatActivity {
 
-
-
     long mNow;
     Date mDate;
     SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
@@ -59,12 +57,7 @@ public class BuyNowActivity extends AppCompatActivity {
 
     private String productName, productPrice, totalQuantity, productImg;
     private int totalPrice, pId, productStock;
-
-
-
-
     int total = 0;
-
     Button btnPayment;
 
     @Override
@@ -207,6 +200,33 @@ public class BuyNowActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 Toast.makeText(BuyNowActivity.this, changePoint + "쇼핑 포인트 지급 완료", Toast.LENGTH_SHORT).show();
+
+                                databaseReference2.child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        User user = snapshot.getValue(User.class);
+                                        final HashMap<String, Object> pointMap = new HashMap<>();
+                                        pointMap.put("pointName", "씨드 적립 - 상품 구매");
+                                        pointMap.put("pointDate", getTime());
+                                        pointMap.put("type", "savepoint");
+                                        pointMap.put("point", totalPrice * 0.01);
+                                        pointMap.put("userName", user.getUsername());
+
+                                        String pointID = databaseReference.child(firebaseUser.getUid()).child("MyPoint").push().getKey();
+
+                                        databaseReference.child(firebaseUser.getUid()).child("MyPoint").child(pointID).setValue(pointMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                Toast.makeText(BuyNowActivity.this, "상품 구매 포인트 내역 저장" , Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
                             }
                         });
 
