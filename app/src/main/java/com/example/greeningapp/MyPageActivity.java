@@ -40,6 +40,7 @@ public class MyPageActivity extends AppCompatActivity implements View.OnClickLis
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_24);
 
@@ -96,6 +97,10 @@ public class MyPageActivity extends AppCompatActivity implements View.OnClickLis
         ImageButton orderBtn = findViewById(R.id.jmny_move);
         orderBtn.setOnClickListener(this);
 
+        ImageButton reviewBtn = findViewById(R.id.rvlist_move);
+        reviewBtn.setOnClickListener(this);
+
+
         ImageButton withdrawalBtn = findViewById(R.id.tt_move);
         withdrawalBtn.setOnClickListener(this);
 
@@ -132,6 +137,9 @@ public class MyPageActivity extends AppCompatActivity implements View.OnClickLis
             startActivity(intent);
         } else if (id == R.id.jmny_move) {
             intent = new Intent(MyPageActivity.this, OrderHistoryActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.rvlist_move) {
+            intent = new Intent(MyPageActivity.this, ReviewHistoryActivity.class);
             startActivity(intent);
         } else if (id == R.id.tt_move) {
             intent = new Intent(MyPageActivity.this, WithdrawalActivity.class);

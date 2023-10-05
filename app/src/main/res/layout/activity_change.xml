@@ -30,7 +30,7 @@
             android:layout_marginRight="72dp"
             android:gravity="center"
             android:text="회원 정보 수정"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold"
             />
     </LinearLayout>
@@ -47,9 +47,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_margin="16dp"
                 android:gravity="center"
                 android:orientation="vertical"
                 >
@@ -58,7 +56,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="viewStart"
-                    android:textSize="18dp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:text="이름" />
 
@@ -73,7 +71,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="viewStart"
-                    android:textSize="18dp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:text="전화번호"
                     />
@@ -90,7 +88,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="viewStart"
-                    android:textSize="18dp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:text="이메일" />
 
@@ -106,7 +104,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="viewStart"
-                    android:textSize="18dp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:text="우편번호" />
 
@@ -121,7 +119,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="viewStart"
-                    android:textSize="18dp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:text="주소" />
 
@@ -143,45 +141,41 @@
                         android:layout_marginBottom="16dp"
                         android:text="비밀번호 재설정은 여기를 클릭하세요"
                         android:textAlignment="viewStart"
-                        android:textSize="16dp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btnPassword"
-                        android:layout_width="wrap_content"
+                        android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:background="@color/sub5"
-                        android:backgroundTint="@color/sub5"
+                        android:background="@drawable/round_box"
                         android:onClick="setUpdatePasswordBtn"
                         android:text="비밀번호 재설정"
-                        android:textColor="#000000"
-                        app:icon="@drawable/baseline_lock_24" />
+                        android:textColor="#000000"/>
 
                 </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="50dp"
-                android:gravity="bottom">
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/save_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@color/mainColor"
-                    android:text="저장하기" />
-
 
             </LinearLayout>
 
         </LinearLayout>
 
     </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/save_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:textColor="@color/white"
+            android:background="@drawable/custom_btn"
+            android:text="저장하기" />
+
+
+    </LinearLayout>
 </LinearLayout>

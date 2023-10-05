@@ -14,57 +14,72 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>{
-
-    private List<Review> reviewList;
+public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.CustomViewHolder>{
+    private ArrayList<Review> dataList;
     private Context context;
 
-    public ReviewAdapter(List<Review> reviewList, Context context){
-        this.reviewList = reviewList;
+    public ReviewAdapter(ArrayList<Review> dataList,  Context context ) {
+        this.dataList = dataList;
         this.context = context;
     }
 
     @NonNull
     @Override
-    public ReviewAdapter.ReviewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.review_item, parent, false);
-        ReviewViewHolder holder = new ReviewViewHolder(view);
+        CustomViewHolder holder = new CustomViewHolder(view);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ReviewAdapter.ReviewViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
         Glide.with(holder.itemView)
-                .load(reviewList.get(position).getRid())
+                .load(dataList.get(position).getRimage())
                 .into(holder.inputimg);
-        holder.reviewdes.setText(String.valueOf(reviewList.get(position).getRcontent()));
-        holder.userrating.setRating(reviewList.get(position).getRscore());
-        holder.reviewdate.setText(reviewList.get(position).getRdatetime());
+        holder.reviewdes.setText(String.valueOf(dataList.get(position).getRcontent()));
+        holder.userrating.setRating(dataList.get(position).getRscore());
+        holder.reviewdate.setText(dataList.get(position).getRdatetime());
+        holder.username.setText(dataList.get(position).getUsername());
+        Glide.with(holder.itemView)
+                .load(dataList.get(position).getPimg())
+                .into(holder.reviewpimg);
+        holder.reviewpname.setText(String.valueOf(dataList.get(position).getPname()));
 
     }
 
     @Override
     public int getItemCount() {
-        if (reviewList != null) {
-            return reviewList.size();
-        }
-        return 0;
+        //삼합연산자
+        return (dataList !=null ? dataList.size() :0);
     }
 
-    public class ReviewViewHolder extends RecyclerView.ViewHolder {
+    public class CustomViewHolder extends RecyclerView.ViewHolder {
         ImageView inputimg;
         RatingBar userrating;
+        TextView username;
         TextView reviewdes;
         TextView reviewdate;
-        public ReviewViewHolder(@NonNull View itemView) {
+        ImageView reviewpimg;
+        TextView reviewpname;
+
+        public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
             this.inputimg = itemView.findViewById(R.id.inputimg);
+            this.username = itemView.findViewById(R.id.username);
             this.reviewdes = itemView.findViewById(R.id.reviewdes);
             this.userrating = itemView.findViewById(R.id.userrating);
             this.reviewdate = itemView.findViewById(R.id.reviewdate);
+            this.reviewpimg = itemView.findViewById(R.id.reviewpimg);
+            this.reviewpname = itemView.findViewById(R.id.reviewpname);
+
+
         }
     }
+
+
 }

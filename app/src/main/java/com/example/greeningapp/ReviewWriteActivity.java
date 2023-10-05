@@ -35,11 +35,44 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+
 public class ReviewWriteActivity extends AppCompatActivity {
 
     private static final int Gallery_Code=1;
 
     FirebaseDatabase mDatabase;
+    DatabaseReference dtf; //잠시추가 0924
     DatabaseReference mRef;
 
     private FirebaseAuth firebaseAuth;
@@ -63,7 +96,6 @@ public class ReviewWriteActivity extends AppCompatActivity {
 
     TextView mDate;  //날짜
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +110,6 @@ public class ReviewWriteActivity extends AppCompatActivity {
         uploadBtn = findViewById(R.id.writeUploadBtn);
         uploadImage = findViewById(R.id.writeUploadImage);
         reviewEt = findViewById(R.id.writeReviewEt);
-        cancelBtn = findViewById(R.id.writeCancelBtn);
         RatingBarEt = findViewById(R.id.writeRatingBar);
 
         mDatabase=FirebaseDatabase.getInstance();
@@ -87,7 +118,7 @@ public class ReviewWriteActivity extends AppCompatActivity {
         //날짜 표시
         mDate = findViewById(R.id.reviewDate);
 
-        String dateTimeFormat = "yyyy.MM.dd";
+        String dateTimeFormat = "yyyy-MM-dd";
         Date date = Calendar.getInstance().getTime();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateTimeFormat);
         String formattedDate = simpleDateFormat.format(date);
@@ -114,13 +145,6 @@ public class ReviewWriteActivity extends AppCompatActivity {
         }
 
 
-        cancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ReviewWriteActivity.this, ReviewActivity.class);
-                startActivity(intent);
-            }
-        });
         uploadImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,10 +183,14 @@ public class ReviewWriteActivity extends AppCompatActivity {
                     reviewwriteMap.put("pimg", product.getOrderImg());
                     reviewwriteMap.put("username", product.getUserName());
 
-                    reviewwriteMap.put("Review_image", reviewImage);
-                    reviewwriteMap.put("Write_review", fn);
-                    reviewwriteMap.put("Rating", rating);
-                    reviewwriteMap.put("Review_date", reviewDate);
+                    reviewwriteMap.put("rimage", reviewImage);
+                    reviewwriteMap.put("rcontent", fn);
+                    reviewwriteMap.put("rscore", rating);
+                    reviewwriteMap.put("rdatetime", reviewDate);
+
+
+                    int pidInt = product.getProductId(); // 정수 값을 가져온후
+                    String pid = String.valueOf(pidInt);  //문자열로 변환하여 저장
 
                     mRef.push().setValue(reviewwriteMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -184,7 +212,6 @@ public class ReviewWriteActivity extends AppCompatActivity {
                     });
 
 
-
                     AlertDialog.Builder builder = new AlertDialog.Builder(ReviewWriteActivity.this);
 
                     builder.setTitle("작성 완료").setMessage("감사합니다!");
@@ -198,11 +225,11 @@ public class ReviewWriteActivity extends AppCompatActivity {
                         }
                     });
 
-                    builder.setNegativeButton("시드 확인", new DialogInterface.OnClickListener() {
+                    builder.setNegativeButton("리뷰 확인", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
-//                            Intent intent = new Intent(Review_write.this, ReviewHistoryActivity.class);
-//                            startActivity(intent);
+                            Intent intent = new Intent(ReviewWriteActivity.this, ReviewHistoryActivity.class);
+                            startActivity(intent);
                         }
                     });
 

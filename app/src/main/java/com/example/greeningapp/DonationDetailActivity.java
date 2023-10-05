@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,7 +52,6 @@ public class DonationDetailActivity extends AppCompatActivity {
     private DatabaseReference databaseReference3;
     private DatabaseReference databaseReference4;
     private FirebaseAuth firebaseAuth;
-
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
 
@@ -60,13 +60,10 @@ public class DonationDetailActivity extends AppCompatActivity {
     private int spoint = 0;
     private int upoint = 0;
     private int allDoPoint = 0;
-
     private int donationId = 0;
-
     private String donationName = "";
-
     private String userAccountName = "";
-
+    private ImageButton navMain, navCategory, navDonation, navMypage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +98,6 @@ public class DonationDetailActivity extends AppCompatActivity {
             donationName = donation.getDonationname();
         }
 
-
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
@@ -112,8 +108,6 @@ public class DonationDetailActivity extends AppCompatActivity {
         databaseReference3 = FirebaseDatabase.getInstance().getReference("Donation");
 
         databaseReference4 = FirebaseDatabase.getInstance().getReference("CurrentUser");
-
-
 
         databaseReference2.child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -153,8 +147,6 @@ public class DonationDetailActivity extends AppCompatActivity {
                     databaseReference.child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-
                             Point point = dataSnapshot.getValue(Point.class);//  만들어 뒀던 Point 객체에 데이터를 담는다.
                             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                             spoint = point.getSpoint();
@@ -233,7 +225,6 @@ public class DonationDetailActivity extends AppCompatActivity {
 
                                     intent.putExtras(bundle);
                                     startActivity(intent);
-
                                 }
 
                                 @Override
@@ -241,7 +232,6 @@ public class DonationDetailActivity extends AppCompatActivity {
 
                                 }
                             });
-
                         }
 
                         @Override
@@ -250,7 +240,6 @@ public class DonationDetailActivity extends AppCompatActivity {
                         }
                     });
 
-
                     // 완료 되면 다이어로그 화면 없애기
                     dialog.dismiss();
 
@@ -258,7 +247,6 @@ public class DonationDetailActivity extends AppCompatActivity {
 //                    Toast.makeText(DonationDetailActivity.this, wannaDonatepoint.getText(), Toast.LENGTH_SHORT).show();
                     Log.d("DonationDetailActivity",databaseReference2.child(firebaseUser.getUid()).child("spoint").toString());
                 }
-
             }
         });
 
@@ -286,7 +274,6 @@ public class DonationDetailActivity extends AppCompatActivity {
                 databaseReference2.child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                         // 기부하기 버튼을 누르면 유저 테이블에서 유저 정보를 가져와 테이블에 저장
                         User user = dataSnapshot.getValue(User.class); //  만들어 뒀던 Product 객체에 데이터를 담는다.
                         final HashMap<String, Object> donateMap = new HashMap<>();
@@ -302,7 +289,6 @@ public class DonationDetailActivity extends AppCompatActivity {
                                 dialog.show();
                             }
                         });
-
                     }
 
                     @Override
@@ -310,13 +296,52 @@ public class DonationDetailActivity extends AppCompatActivity {
 
                     }
                 });
-
-
             }
         });
 
         dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
+        navMain = findViewById(R.id.navMain_doDetail);
+        navCategory = findViewById(R.id.navCategory_doDetail);
+        navDonation = findViewById(R.id.navDonation_doDetail);
+        navMypage = findViewById(R.id.navMypage_doDetail);
+
+        // 각 아이콘 클릭 이벤트 처리
+        navMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 홈 아이콘 클릭 시 처리할 내용
+                Intent intent = new Intent(DonationDetailActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        navCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 카테고리 아이콘 클릭 시 처리할 내용
+                Intent intent = new Intent(DonationDetailActivity.this, CategoryActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        navDonation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 기부 아이콘 클릭 시 처리할 내용
+                Intent intent = new Intent(DonationDetailActivity.this, DonationMainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        navMypage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 마이페이지 아이콘 클릭 시 처리할 내용
+                Intent intent = new Intent(DonationDetailActivity.this, MyPageActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private String getTime(){
@@ -324,6 +349,4 @@ public class DonationDetailActivity extends AppCompatActivity {
         mDate = new Date(mNow);
         return mFormat.format(mDate);
     }
-
-
 }

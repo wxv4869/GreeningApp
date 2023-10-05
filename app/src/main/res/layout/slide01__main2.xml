@@ -7,8 +7,9 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/slide01_main2"
         android:layout_width="400dp"
-        android:layout_height="340dp"
+        android:layout_height="415dp"
         android:gravity="center"
         android:background="@drawable/big2"
         />

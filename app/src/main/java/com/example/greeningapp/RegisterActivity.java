@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,11 +27,15 @@ public class RegisterActivity extends AppCompatActivity {
     long mNow;
     Date mDate;
     SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd");
+
     private FirebaseAuth mFirebaseAuth; // 파이어베이스 인증 처리
     private DatabaseReference mDatabaseRef; // 실시간 데이터베이스
     private EditText mEtEmail, mEtPwd; // 회원가입 입력필드
+
     private EditText mEtName, mEtPhone, mEtPostcode, mEtAddress;
     private Button mBtnRegister; // 회원가입 입력 버튼
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +76,7 @@ public class RegisterActivity extends AppCompatActivity {
                             user.setIdToken(firebaseUser.getUid());
                             user.setEmailId(firebaseUser.getEmail());
                             user.setPassword(strPwd);
+
                             user.setUsername(strName);
                             user.setPhone(strPhone);
                             user.setPostcode(strPostcode);
@@ -81,6 +85,10 @@ public class RegisterActivity extends AppCompatActivity {
                             user.setUpoint(0);
                             user.setSpoint(0);
                             user.setDoquiz("No");
+
+                            // 9/20 삭제 코드
+//                            user.setAttendance("");
+
 
                             //setValue : database에 insert(삽입) 행위
                             // 회원 정보 데이터베이스에 저장
@@ -98,8 +106,8 @@ public class RegisterActivity extends AppCompatActivity {
                 });
             }
         });
-    }
 
+    }
     private String getTime(){
         mNow = System.currentTimeMillis();
         mDate = new Date(mNow);

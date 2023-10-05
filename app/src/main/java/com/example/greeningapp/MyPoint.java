@@ -55,4 +55,3 @@ public class MyPoint {
 
     public void setType(String type) { this.type = type; }
 }
-

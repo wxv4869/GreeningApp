@@ -1,23 +1,20 @@
 package com.example.greeningapp;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.greeningapp.Cart;
-import com.example.greeningapp.OrderAdapter;
-import com.example.greeningapp.OrderCompleteActivity;
-import com.example.greeningapp.Product;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,6 +37,7 @@ public class OrderActivity extends AppCompatActivity {
     Date mDate;
     SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 
+
     FirebaseDatabase firebaseDatabase;
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
@@ -52,18 +50,27 @@ public class OrderActivity extends AppCompatActivity {
     private ArrayList<Cart> arrayList;
 
     Product product = null;
+
     private TextView overTotalAmount;
+
     private TextView orderName;
     private TextView orderPhone;
     private TextView orderAddress;
+
     private TextView orderPostcode;
+
     private String strOrderName;
     private String strOrderPhone;
     private String strOrderAddress;
+
     private String strOrderPostcode;
     private int userSPoint;
+
     int total = 0;
+
     Button btnPayment;
+
+    private ImageButton navMain, navCategory, navDonation, navMypage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -268,7 +275,6 @@ public class OrderActivity extends AppCompatActivity {
                                 });
                             }
                         });
-
                         // 주문 완료 페이지에서 현재 주문에 대한 데이터베이스를 가져오기 위해 id를 OrderCompleteActivity에 넘겨줌
                         Intent intent = new Intent(OrderActivity.this, OrderCompleteActivity.class);
                         intent.putExtra("orderId", orderId);
@@ -277,9 +283,55 @@ public class OrderActivity extends AppCompatActivity {
                         startActivity(intent);
 
                     }
+
+
                 }
+
             }
         });
+
+        navMain = findViewById(R.id.navMain_order);
+        navCategory = findViewById(R.id.navCategory_order);
+        navDonation = findViewById(R.id.navDonation_order);
+        navMypage = findViewById(R.id.navMypage_order);
+
+        // 각 아이콘 클릭 이벤트 처리
+        navMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 홈 아이콘 클릭 시 처리할 내용
+                Intent intent = new Intent(OrderActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        navCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 카테고리 아이콘 클릭 시 처리할 내용
+                Intent intent = new Intent(OrderActivity.this, CategoryActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        navDonation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 기부 아이콘 클릭 시 처리할 내용
+                Intent intent = new Intent(OrderActivity.this, DonationMainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        navMypage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 마이페이지 아이콘 클릭 시 처리할 내용
+                Intent intent = new Intent(OrderActivity.this, MyPageActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private String getTime(){

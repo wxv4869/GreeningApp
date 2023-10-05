@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,18 +27,15 @@ import java.util.List;
 public class OrderCompleteActivity extends AppCompatActivity {
 
     private String orderId, myOrderId;
-
     private TextView cmpOrderId, cmpOrderDate, cmp_totalPrice, cmp_name, cmp_phone, cmp_address, cmp_postcode;
-
     private Button btnGoMain;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
-
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView recyclerView;
-
     private OrderCompleteAdapter orderCompleteAdapter;
     private List<MyOrder> myOrderList;
+    private ImageButton navMain, navCategory, navDonation, navMypage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +87,6 @@ public class OrderCompleteActivity extends AppCompatActivity {
                         cmp_address.setText(myOrder.getAddress());
                         cmp_postcode.setText(myOrder.getPostcode());
                     }
-
                 }
             }
         });
@@ -109,7 +106,46 @@ public class OrderCompleteActivity extends AppCompatActivity {
             }
         });
 
+        navMain = findViewById(R.id.navMain_orderComple);
+        navCategory = findViewById(R.id.navCategory_orderComple);
+        navDonation = findViewById(R.id.navDonation_orderComple);
+        navMypage = findViewById(R.id.navMypage_orderComple);
 
+        // 각 아이콘 클릭 이벤트 처리
+        navMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 홈 아이콘 클릭 시 처리할 내용
+                Intent intent = new Intent(OrderCompleteActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
+        navCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 카테고리 아이콘 클릭 시 처리할 내용
+                Intent intent = new Intent(OrderCompleteActivity.this, CategoryActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        navDonation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 기부 아이콘 클릭 시 처리할 내용
+                Intent intent = new Intent(OrderCompleteActivity.this, DonationMainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        navMypage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 마이페이지 아이콘 클릭 시 처리할 내용
+                Intent intent = new Intent(OrderCompleteActivity.this, MyPageActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

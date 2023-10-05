@@ -24,14 +24,11 @@ public class DonationCompleteActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
     private TextView completeuPoint, completement, completeDoName, completeDoDate, completeDoPoint;
-
     private String donationName;
     private String donationDate;
     private String userName;
     private int donationPoint;
     private Button goToMain;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +37,6 @@ public class DonationCompleteActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-
         databaseReference = FirebaseDatabase.getInstance().getReference("User");
 
         completeuPoint = findViewById(R.id.completeU_point);
@@ -52,10 +48,8 @@ public class DonationCompleteActivity extends AppCompatActivity {
         databaseReference.child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                 User user = dataSnapshot.getValue(User.class); //  만들어 뒀던 Product 객체에 데이터를 담는다.
                 completeuPoint.setText(user.getSpoint() + " 씨드");
-
             }
 
             @Override
@@ -73,8 +67,6 @@ public class DonationCompleteActivity extends AppCompatActivity {
             donationDate = bundle.getString("donationDate");
 
             Log.d("DonationCompleteActivity", userName + donationName + donationPoint + donationDate);
-
-
         }
 
         completement.setText("총 " + String.valueOf(donationPoint) + " 씨드로");
@@ -91,7 +83,5 @@ public class DonationCompleteActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
     }
 }
