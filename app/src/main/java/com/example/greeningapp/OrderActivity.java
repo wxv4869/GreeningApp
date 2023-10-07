@@ -110,7 +110,6 @@ public class OrderActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // 파이어베이스 데이터베이스의 데이터를 받아오는 곳
-
                 User user = dataSnapshot.getValue(User.class); //  만들어 뒀던 Product 객체에 데이터를 담는다.
                 orderName.setText(user.getUsername());
                 orderPhone.setText(user.getPhone());
@@ -178,7 +177,6 @@ public class OrderActivity extends AppCompatActivity {
         btnPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 databaseReference2.child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -195,7 +193,7 @@ public class OrderActivity extends AppCompatActivity {
                         databaseReference.child(firebaseUser.getUid()).child("MyPoint").child(pointID).setValue(pointMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                Toast.makeText(OrderActivity.this, "상품 구매 포인트 내역 저장" , Toast.LENGTH_SHORT).show();
+
                             }
                         });
                     }
@@ -270,7 +268,7 @@ public class OrderActivity extends AppCompatActivity {
                                 databaseReference2.child(firebaseUser.getUid()).child("spoint").setValue(changePoint).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
-//                                        Toast.makeText(OrderActivity.this, "쇼핑 포인트 지급 완료", Toast.LENGTH_SHORT).show();
+//
                                     }
                                 });
                             }

@@ -32,7 +32,7 @@ public class CategoryActivity extends AppCompatActivity{
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(false);//기본 제목 삭제.
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_24); //
+        actionBar.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_24);
 
         tab = findViewById(R.id.tab);
         viewPager = findViewById(R.id.viewPager);
