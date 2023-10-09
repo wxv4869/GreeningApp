@@ -1,6 +1,5 @@
 package com.example.greeningapp;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +16,7 @@ public class mainslide01_Fg1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
-                R.layout.slide01__main1, container, false);
+                R.layout.slide01_main1, container, false);
 
         slide01_main1 = rootView.findViewById(R.id.slide01_main1); // 레이아웃 파일에서 TextView의 ID를 사용하여 뷰를 찾는다.
 

@@ -12,7 +12,7 @@ public class mainslide02_Fg4 extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
-                R.layout.slide02__main4, container, false);
+                R.layout.slide02_main4, container, false);
 
         return rootView;
     }

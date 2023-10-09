@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".AttendanceActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -86,21 +87,21 @@
 
             </FrameLayout>
 
-<!--            <TextView-->
-<!--                android:id="@+id/tv_attendance_completed"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="해당 날짜는\n 출석체크가 완료되었습니다 :)"-->
-<!--                android:textSize="18sp"-->
-<!--                android:textStyle="bold"-->
-<!--                android:textColor="@color/mainColor"-->
-<!--                android:visibility="invisible"-->
-<!--                android:gravity="center"-->
-<!--                android:layout_gravity="center"-->
-<!--                app:layout_constraintTop_toTopOf="@+id/calendarContainer"-->
-<!--                app:layout_constraintStart_toStartOf="@+id/calendarContainer"-->
-<!--                app:layout_constraintEnd_toEndOf="@+id/calendarContainer"-->
-<!--                app:layout_constraintBottom_toBottomOf="@+id/calendarContainer"/>-->
+            <!--            <TextView-->
+            <!--                android:id="@+id/tv_attendance_completed"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="해당 날짜는\n 출석체크가 완료되었습니다 :)"-->
+            <!--                android:textSize="18sp"-->
+            <!--                android:textStyle="bold"-->
+            <!--                android:textColor="@color/mainColor"-->
+            <!--                android:visibility="invisible"-->
+            <!--                android:gravity="center"-->
+            <!--                android:layout_gravity="center"-->
+            <!--                app:layout_constraintTop_toTopOf="@+id/calendarContainer"-->
+            <!--                app:layout_constraintStart_toStartOf="@+id/calendarContainer"-->
+            <!--                app:layout_constraintEnd_toEndOf="@+id/calendarContainer"-->
+            <!--                app:layout_constraintBottom_toBottomOf="@+id/calendarContainer"/>-->
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_attendcheck"

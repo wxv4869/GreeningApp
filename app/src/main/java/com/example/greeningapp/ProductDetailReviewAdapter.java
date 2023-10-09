@@ -1,5 +1,4 @@
 package com.example.greeningapp;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;

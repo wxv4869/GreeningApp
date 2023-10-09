@@ -1,5 +1,4 @@
 package com.example.greeningapp;
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;

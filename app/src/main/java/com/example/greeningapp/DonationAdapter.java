@@ -31,9 +31,16 @@ public class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.Donati
     private Context context;
     private ArrayList<Donation> donationList;
 
+
+
+
+
+
     public DonationAdapter(ArrayList<Donation> donationList, Context context){
         this.donationList = donationList;
         this.context = context;
+
+
     }
 
     @NonNull
@@ -42,6 +49,7 @@ public class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.Donati
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.donation_item, parent, false);
         DonationViewHolder holder = new DonationViewHolder(view);
         return holder;
+
     }
 
     @Override
@@ -115,6 +123,11 @@ public class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.Donati
 //            e.printStackTrace();
 //        }
 
+
+
+
+
+
 //
 //        holder.itemView.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -123,6 +136,11 @@ public class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.Donati
 //                Intent intent = new Intent(context, DonationDetailActivity.class);
 //                intent.putExtra("donationDetail", donationList.get(position));
 //                context.startActivity(intent);
+//
+//
+//
+//
+//
 //            }
 //        });
 
@@ -149,4 +167,5 @@ public class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.Donati
             this.donationEnd = itemView.findViewById(R.id.donation_end);
         }
     }
+
 }

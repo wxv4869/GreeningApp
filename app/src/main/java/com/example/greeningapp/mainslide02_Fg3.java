@@ -16,7 +16,7 @@ public class mainslide02_Fg3 extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
-                R.layout.slide02__main3, container, false);
+                R.layout.slide02_main3, container, false);
 
         slide02_main3 = rootView.findViewById(R.id.slide02_main3); // 기부 광고
 
