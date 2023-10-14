@@ -157,7 +157,7 @@ public class FragmentQList extends Fragment {
                                                     User user = datasnapshot.getValue(User.class);
                                                     FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                                                     final HashMap<String, Object> pointMap = new HashMap<>();
-                                                    pointMap.put("pointname", "씨드 적립 - 오늘의 퀴즈");
+                                                    pointMap.put("pointName", "씨드 적립 - 오늘의 퀴즈");
                                                     pointMap.put("pointDate", getTime());
                                                     pointMap.put("type", "savepoint");
                                                     pointMap.put("point", 10);
