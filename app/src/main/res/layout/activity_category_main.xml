@@ -10,12 +10,13 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="65dp"
-        android:background="?attr/colorPrimary"
+        android:background="@color/mainColor"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:title=""/>
+
     <TabHost
         android:id="@android:id/tabhost"
         android:layout_width="match_parent"
@@ -31,7 +32,7 @@
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/white" />
+                android:background="@color/white" />
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -75,9 +76,11 @@
                     </LinearLayout>
 
                 </FrameLayout>
+
             </ScrollView>
 
         </LinearLayout>
 
     </TabHost>
+
 </androidx.appcompat.widget.LinearLayoutCompat>

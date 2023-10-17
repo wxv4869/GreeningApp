@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+
+import com.example.greeningapp.ShoppingMainActivity;
 
 public class mainslide01_Fg2 extends Fragment {
 
@@ -23,7 +26,7 @@ public class mainslide01_Fg2 extends Fragment {
         slide01_main2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ShoppingMainActivity.class);
+                Intent intent = new Intent(getActivity(), CategoryActivity.class);
                 startActivity(intent);
             }
         });

@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp" >
+        android:padding="10dp">
 
         <ImageView
             android:id="@+id/searchpimg"
@@ -25,8 +25,7 @@
             android:layout_toRightOf="@id/searchpimg"
             android:text="This is P_Name"
             android:textColor="#000"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/searchpsay"
@@ -48,7 +47,7 @@
             android:layout_toRightOf="@id/searchpimg"
             android:text="This is P_price"
             android:textColor="#000"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
     </RelativeLayout>

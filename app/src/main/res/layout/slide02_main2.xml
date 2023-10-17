@@ -8,10 +8,9 @@
 
     <TextView
         android:id="@+id/slide02_main2"
-        android:layout_width="400dp"
+        android:layout_width="match_parent"
         android:layout_height="140dp"
         android:gravity="center"
-        android:background="@drawable/small2"
-        />
+        android:background="@drawable/small2" />
 
 </LinearLayout>

@@ -8,10 +8,12 @@
     android:orientation="vertical"
     android:background="@color/white"
     tools:context=".CategoryActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -19,31 +21,33 @@
             android:background="@color/white"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:includeFontPadding="false"
                 android:text="카테고리"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="18sp" />
 
-                android:includeFontPadding="false"
-                android:layout_gravity="center"
-                />
-        </androidx.appcompat.widget.Toolbar>/>
+        </androidx.appcompat.widget.Toolbar>
+
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:orientation="vertical">
+
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab"
             android:layout_width="match_parent"
             android:background="@color/white"
             android:layout_height="wrap_content"/>
+
     </LinearLayout>
 
     <androidx.viewpager.widget.ViewPager
