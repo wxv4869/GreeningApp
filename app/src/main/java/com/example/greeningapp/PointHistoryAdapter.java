@@ -17,23 +17,37 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import android.content.Context;
 
+import java.text.SimpleDateFormat;
 import java.text.DecimalFormat;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 public class PointHistoryAdapter extends RecyclerView.Adapter<PointHistoryAdapter.PointHistoryViewHolder> {
-
     Context context;
     List<MyPoint> pointHistoryList;
     FirebaseDatabase firebaseDatabase;
     FirebaseAuth firebaseAuth;
-    DatabaseReference databaseReference;
 
-    // 숫자에 콤마
     DecimalFormat decimalFormat = new DecimalFormat("###,###");
-
 
     public PointHistoryAdapter(Context context, List<MyPoint> pointHistoryList) {
         this.context = context;
+        Collections.sort(pointHistoryList, new Comparator<MyPoint>() {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+            @Override
+            public int compare(MyPoint point1, MyPoint point2) {
+                try {
+                    Date date1 = dateFormat.parse(point1.getPointDate());
+                    Date date2 = dateFormat.parse(point2.getPointDate());
+                    return date2.compareTo(date1);
+                } catch (Exception e) {
+                    return 0;
+                }
+            }
+        });
         this.pointHistoryList = pointHistoryList;
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
@@ -59,7 +73,7 @@ public class PointHistoryAdapter extends RecyclerView.Adapter<PointHistoryAdapte
 
         String pointNameTextView = myPoint.getPointName();
         if (pointNameTextView.length() > 21) {
-            pointNameTextView = pointNameTextView.substring(0, 21) + "…";
+            pointNameTextView = pointNameTextView.substring(0, 27) + "…";
         }
 
         holder.pointNameTextView.setText(pointNameTextView);

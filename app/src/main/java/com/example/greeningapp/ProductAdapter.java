@@ -21,7 +21,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class ProductAdapter  extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder>{
-
     private ArrayList<Product> arrayList;
     private Context context;
 
@@ -47,8 +46,6 @@ public class ProductAdapter  extends RecyclerView.Adapter<ProductAdapter.Product
         holder.textPrice.setText("가격 :" + String.valueOf(arrayList.get(position).getPprice()));
         holder.textStock.setText("재고수량 : " + String.valueOf(arrayList.get(position).getStock()));
 
-
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,8 +58,6 @@ public class ProductAdapter  extends RecyclerView.Adapter<ProductAdapter.Product
 
     @Override
     public int getItemCount() {
-        //삼항 연산자
-//        return (arrayList != null ? arrayList.size() : 0);
         if (arrayList != null) {
             return arrayList.size();
         }
@@ -74,9 +69,7 @@ public class ProductAdapter  extends RecyclerView.Adapter<ProductAdapter.Product
         ImageView imageView;
         TextView textName;
         TextView textPrice;
-
         TextView textStock;
-
         ImageView detailImg;
 
         public ProductViewHolder(@NonNull View itemView) {
@@ -86,7 +79,6 @@ public class ProductAdapter  extends RecyclerView.Adapter<ProductAdapter.Product
             this.imageView = itemView.findViewById(R.id.imageView);
             this.textStock = itemView.findViewById(R.id.textStock);
             this.detailImg = imageView.findViewById(R.id.detail_longimg);
-
         }
     }
 }
