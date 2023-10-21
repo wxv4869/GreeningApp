@@ -28,7 +28,6 @@ public class PointHistoryActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
-
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private PointHistoryAdapter adapter;
@@ -57,10 +56,8 @@ public class PointHistoryActivity extends AppCompatActivity {
 
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser != null) {
-            // 현재 로그인된 사용자의 UID 가져오기
             String currentUserId = currentUser.getUid();
 
-            // MyPoint 노드에서 현재 사용자의 UID를 기반으로 데이터 조회
             databaseReference = firebaseDatabase.getReference("CurrentUser")
                     .child(currentUserId)
                     .child("MyPoint");
@@ -79,8 +76,7 @@ public class PointHistoryActivity extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    // DB를 가져오던 중 에러 발생 시
-                    Log.e("PointHistoryActivity", String.valueOf(databaseError.toException()));    // 에러문 출력
+                    Log.e("PointHistoryActivity, 데이터 로드 오류", String.valueOf(databaseError.toException()));
                 }
             });
         }
@@ -90,7 +86,7 @@ public class PointHistoryActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
-        if (itemId == android.R.id.home) { //뒤로가기
+        if (itemId == android.R.id.home) {
             onBackPressed();
             return true;
         } else {

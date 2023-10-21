@@ -1,6 +1,5 @@
 package com.example.greeningapp;
 
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
@@ -96,6 +95,10 @@ public class FragmentQList extends Fragment {
         qlist4RadioButton = view.findViewById(R.id.qlist4);
 
 
+        // 초기 상태에서 버튼 비활성화
+        btnDoQuiz.setEnabled(false);
+        btnDoQuiz.setBackgroundColor(getResources().getColor(R.color.textColorGray));
+
 
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Quiz");
@@ -128,12 +131,20 @@ public class FragmentQList extends Fragment {
                             public void onCheckedChanged(RadioGroup group, int checkedId) {
                                 if(checkedId == R.id.qlist1){
                                     resultUser = String.valueOf(qlist1RadioButton.getText());
+                                    btnDoQuiz.setEnabled(true);
+                                    btnDoQuiz.setBackgroundColor(getResources().getColor(R.color.mainColor));
                                 } else if(checkedId == R.id.qlist2){
                                     resultUser = String.valueOf(qlist2RadioButton.getText());
+                                    btnDoQuiz.setEnabled(true);
+                                    btnDoQuiz.setBackgroundColor(getResources().getColor(R.color.mainColor));
                                 } else if(checkedId == R.id.qlist3){
                                     resultUser = String.valueOf(qlist3RadioButton.getText());
+                                    btnDoQuiz.setEnabled(true);
+                                    btnDoQuiz.setBackgroundColor(getResources().getColor(R.color.mainColor));
                                 } else if(checkedId == R.id.qlist4){
                                     resultUser = String.valueOf(qlist4RadioButton.getText());
+                                    btnDoQuiz.setEnabled(true);
+                                    btnDoQuiz.setBackgroundColor(getResources().getColor(R.color.mainColor));
                                 }
 
                             }
@@ -185,12 +196,12 @@ public class FragmentQList extends Fragment {
                                 }
 
                                 // 테스트를 위해서 잠시 주석 처리 (퀴즈 완료 처리하는 코드)
-//                                databaseReferenceUser.child(firebaseUser.getUid()).child("doquiz").setValue("Yes").addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                    @Override
-//                                    public void onComplete(@NonNull Task<Void> task) {
-//                                        Log.d("FragmentQList", "doquiz 키값 변경 완료" + user.getDoquiz());
-//                                    }
-//                                });
+                                databaseReferenceUser.child(firebaseUser.getUid()).child("doquiz").setValue("Yes").addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        Log.d("FragmentQList", "doquiz 키값 변경 완료" + user.getDoquiz());
+                                    }
+                                });
 
                             }
                         });
