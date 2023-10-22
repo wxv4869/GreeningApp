@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -132,6 +133,9 @@ public class AttendanceActivity extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 btn_attendcheck.setEnabled(true);
+
+                int selectedDateStyle = R.style.selectedDateTextAppearance;
+                view.setDateTextAppearance(selectedDateStyle);
 
                 String selectedDate = formatDate(year, month, dayOfMonth);
                 userRef.child("MyAttendance").child(selectedDate).addListenerForSingleValueEvent(new ValueEventListener() {
