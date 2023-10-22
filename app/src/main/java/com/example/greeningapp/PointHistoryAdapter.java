@@ -6,15 +6,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import android.content.Context;
+
+import java.text.SimpleDateFormat;
 import java.text.DecimalFormat;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 public class PointHistoryAdapter extends RecyclerView.Adapter<PointHistoryAdapter.PointHistoryViewHolder> {
@@ -27,6 +34,20 @@ public class PointHistoryAdapter extends RecyclerView.Adapter<PointHistoryAdapte
 
     public PointHistoryAdapter(Context context, List<MyPoint> pointHistoryList) {
         this.context = context;
+        Collections.sort(pointHistoryList, new Comparator<MyPoint>() {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+            @Override
+            public int compare(MyPoint point1, MyPoint point2) {
+                try {
+                    Date date1 = dateFormat.parse(point1.getPointDate());
+                    Date date2 = dateFormat.parse(point2.getPointDate());
+                    return date2.compareTo(date1);
+                } catch (Exception e) {
+                    return 0;
+                }
+            }
+        });
         this.pointHistoryList = pointHistoryList;
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
