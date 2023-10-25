@@ -136,8 +136,12 @@ public class AttendanceActivity extends AppCompatActivity {
                         if (attendanceCompleted != null && attendanceCompleted) {
                             if (isToday(selectedDate)) {
                                 showDialog();    // "오늘은 이미 출석체크에 참여하셨습니다."
+                                btn_attendcheck.setEnabled(false);
+                                btn_attendcheck.setBackgroundResource(R.drawable.custom_btn_attendance);
                             } else {
                                 showDialog4();    // "해당 날짜에 출석체크를 참여하셨습니다 :)"
+                                btn_attendcheck.setEnabled(false);
+                                btn_attendcheck.setBackgroundResource(R.drawable.custom_btn_attendance);
                             }
                         } else {
 
@@ -188,8 +192,8 @@ public class AttendanceActivity extends AppCompatActivity {
                             Log.e("AttendanceActivity, 출석체크 오류", String.valueOf(databaseError.toException()));
                         }
                     });
-                } if (currentYear != selectedYear || currentMonth != selectedMonth || currentDayOfMonth != selectedDayOfMonth) {
-                    showDialog2();
+                } else {
+
                 }
             }
         });

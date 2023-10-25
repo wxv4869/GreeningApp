@@ -1,9 +1,11 @@
 package com.example.greeningapp;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -17,10 +19,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,12 +45,15 @@ import java.util.HashMap;
 public class ReviewWriteActivity extends AppCompatActivity {
 
     private static final int Gallery_Code=1;
-
+    FirebaseUser firebaseUser;
     FirebaseDatabase mDatabase;
     DatabaseReference mRef;
 
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
+
+    private DatabaseReference databaseReference2;
+    private DatabaseReference databaseReference3;
     //DatabaseReference databaseReference2; //잠시 추가 -> //MyOrder
 
     private BottomNavigationView bottomNavigationView;
@@ -61,8 +69,14 @@ public class ReviewWriteActivity extends AppCompatActivity {
     EditText reviewEt;
     MyOrder product = null;
     TextView Pname;
+    //TextView Pprice;
     ImageView Pimg;
     TextView mDate;  //날짜
+
+    Dialog Reviewdialog;
+
+    private String orderId,myOrderId, eachOrderedId;
+    private int userSPoint;
 
     Toolbar rtoolbar;
 
@@ -84,7 +98,7 @@ public class ReviewWriteActivity extends AppCompatActivity {
         actionBar.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_24);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        firebaseUser = firebaseAuth.getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference("CurrentUser").child(firebaseUser.getUid()).child("MyOrder");
 
         uploadBtn = findViewById(R.id.writeUploadBtn);
@@ -167,30 +181,116 @@ public class ReviewWriteActivity extends AppCompatActivity {
                     reviewwriteMap.put("pimg", product.getOrderImg());
                     reviewwriteMap.put("username", product.getUserName());
                     reviewwriteMap.put("pprice", product.getProductPrice());
+                    reviewwriteMap.put("totalquantity", product.getTotalQuantity());
                     reviewwriteMap.put("rimage", reviewImage);
                     reviewwriteMap.put("rcontent", fn);
                     reviewwriteMap.put("rscore", rating);
                     reviewwriteMap.put("rdatetime", reviewDate);
 
+                    Log.d("Review", "리뷰 작성 여부 " + product.getDoReview());
+
+//                    // 구매후기 작성 시 포인트 적립
+//                    databaseReference2.child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                            User user = snapshot.getValue(User.class);
+//                            userSPoint = user.getSpoint();
+//                            double changePoint = userSPoint + 50;
+//                            databaseReference2.child(firebaseUser.getUid()).child("spoint").setValue(changePoint).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                @Override
+//                                public void onComplete(@NonNull Task<Void> task) {
+////                                    Toast.makeText(ReviewWriteActivity.this, "포인트 지급 성공", Toast.LENGTH_SHORT).show();
+//                                }
+//                            });
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError error) {
+//
+//                        }
+//                    });
+//
+//                    // 구매후기 작성 시 포인트 데이터 저장
+//                    databaseReference2.child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                            User user = snapshot.getValue(User.class);
+//                            final HashMap<String, Object> pointMap = new HashMap<>();
+//                            pointMap.put("pointName", "씨드 적립 - 구매후기 작성");
+//                            pointMap.put("pointDate", reviewDate);
+//                            pointMap.put("type", "savepoint");
+//                            pointMap.put("point", 50);
+//                            pointMap.put("userName", user.getUsername());
+//
+//                            String pointID = databaseReference3.child(firebaseUser.getUid()).child("MyPoint").push().getKey();
+//                            databaseReference3.child(firebaseUser.getUid()).child("MyPoint").child(pointID).setValue(pointMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                @Override
+//                                public void onComplete(@NonNull Task<Void> task) {
+//                                    Toast.makeText(ReviewWriteActivity.this, "포인트 데이터 저장 성공", Toast.LENGTH_SHORT).show();
+//                                }
+//                            });
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError error) {
+//
+//                        }
+//                    });
+
+//                    int pidInt = product.getProductId(); // 정수 값을 가져온후
+//                    String pid = String.valueOf(pidInt);  //문자열로 변환하여 저장
 
 
-                    Log.d("Review", "리뷰 작성 여부 " +  product.getDoReview());
+//                    mRef.push().setValue(reviewwriteMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<Void> task) {
+//                            if (task.isSuccessful()) {
+//                                // Firebase 데이터 쓰기가 성공한 경우
+//                                product.setDoReview("Yes");
+//
+//                            } else {
+//                                // Firebase 데이터 쓰기가 실패한 경우
+//                                Log.e("Firebase", "Data write failed: " + task.getException().getMessage());
+//                            }
+//                        }
+//                    });
 
+                    //mRef.push().child(pid).setValue(reviewwriteMap).addOnCompleteListener
                     mRef.push().setValue(reviewwriteMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
+
+
                             if (task.isSuccessful()) {
-                                // Firebase 데이터 쓰기가 성공한 경우
-                                product.setDoReview("Yes");
+                                databaseReference.child(product.getOrderId()).child(product.getEachOrderedId()).child("doReview").setValue("Yes").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d("Myreview", "myOrderId: " + myOrderId);
+                                        Log.d("eachorderid", "eachOrderedId: " + eachOrderedId);
+
+                                    }
+                                });
+
+
+
+
+
+
+
+
+
 
                             } else {
                                 // Firebase 데이터 쓰기가 실패한 경우
                                 Log.e("Firebase", "Data write failed: " + task.getException().getMessage());
                             }
+
+
                         }
                     });
 
 
+                    //AlertDialog
                     AlertDialog.Builder builder = new AlertDialog.Builder(ReviewWriteActivity.this);
 
                     builder.setTitle("작성 완료").setMessage("감사합니다!");
@@ -199,12 +299,12 @@ public class ReviewWriteActivity extends AppCompatActivity {
                     builder.setPositiveButton("홈 이동", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
-                            Intent intent = new Intent(ReviewWriteActivity.this, ReviewActivity.class);
+                            Intent intent = new Intent(ReviewWriteActivity.this, MainActivity.class);
                             startActivity(intent);
                         }
                     });
 
-                    builder.setNegativeButton("시드 확인", new DialogInterface.OnClickListener() {
+                    builder.setNegativeButton("후기 확인", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
                             Intent intent = new Intent(ReviewWriteActivity.this, ReviewHistoryActivity.class);
@@ -220,6 +320,24 @@ public class ReviewWriteActivity extends AppCompatActivity {
                     // 리뷰 내용 또는 이미지가 비어 있는 경우에 대한 처리
 
                 }
+
+//                public void showReviewdialog() {
+//                    Reviewdialog.show();
+//
+//                    Reviewdialog.show();
+//
+//                    TextView confirmTextView = Reviewdialog.findViewById(R.id.confirmTextView);
+//                    confirmTextView.setText("작성이 완료되었습니다.");
+//
+//                    Button btnOk = Reviewdialog.findViewById(R.id.btn_ok);
+//                    btnOk.setText("주문내역으로 돌아가기");
+//                    btnOk.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Reviewdialog.dismiss();
+//                        }
+//                    });
+//                }
 
             }
 
