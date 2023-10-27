@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -10,19 +11,15 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GreeningApp"
         tools:targetApi="31">
         <activity
-            android:name=".ManagerMainActivity"
+            android:name=".ManageUserOrderDetailActivity"
             android:exported="false" />
         <activity
             android:name=".ManageUserReviewActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ManageUserOrderDetailActivity"
             android:exported="false" />
         <activity
             android:name=".ManageUserOrderActivity"
@@ -31,10 +28,16 @@
             android:name=".ManageUserDetailActivity"
             android:exported="false" />
         <activity
+            android:name=".ManageUserActivity"
+            android:exported="false" />
+        <activity
             android:name=".ManageProductDetailActivity"
             android:exported="false" />
         <activity
             android:name=".ManageAddProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ManagerMainActivity"
             android:exported="false" />
         <activity
             android:name=".TermsOfUseActivity"
@@ -50,9 +53,6 @@
         </activity>
         <activity
             android:name=".ReviewHistoryActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CategoryActivity"
             android:exported="false" />
         <activity
             android:name=".OrderHistoryActivity"
@@ -74,6 +74,9 @@
             android:exported="false" />
         <activity
             android:name=".SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CategoryActivity"
             android:exported="false" />
         <activity
             android:name=".BuyNowActivity"
@@ -122,15 +125,7 @@
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
-            android:exported="false">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="false" />
