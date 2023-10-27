@@ -20,7 +20,6 @@ public class ProductDetailReviewAdapter extends RecyclerView.Adapter<ProductDeta
         this.reviewList = reviewList;
         this.context = context;
     }
-
     @NonNull
     @Override
     public ReviewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

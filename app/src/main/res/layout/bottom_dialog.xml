@@ -5,8 +5,7 @@
     android:background="@color/white"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    android:fitsSystemWindows="true"
-    >
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +19,6 @@
             android:layout_marginLeft="32dp"
             android:layout_marginRight="32dp"
             android:orientation="horizontal">
-
 
             <TextView
                 android:layout_width="wrap_content"
@@ -41,8 +39,7 @@
                 android:textSize="14sp"
                 android:hint="씨드를 입력해주세요."
                 android:background="@drawable/square_box"
-                android:layout_height="wrap_content"
-                />
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
@@ -55,8 +52,7 @@
             android:layout_marginTop="8dp"
             android:textColor="#EA4335"
             android:textSize="13sp"
-            android:layout_marginBottom="16dp"
-            />
+            android:layout_marginBottom="16dp" />
 
     </LinearLayout>
 

@@ -26,7 +26,6 @@ import java.util.Date;
 import java.util.ArrayList;
 
 public class PointHistoryActivity extends AppCompatActivity {
-
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
@@ -73,7 +72,6 @@ public class PointHistoryActivity extends AppCompatActivity {
                         arrayList.add(myPoint);
                     }
 
-                    // 적립 데이터 불러올 때 날짜(pointDate)를 기준으로 내림차순 정렬
                     Collections.sort(arrayList, new Comparator<MyPoint>() {
                         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -88,7 +86,6 @@ public class PointHistoryActivity extends AppCompatActivity {
                             }
                         }
                     });
-
                     adapter = new PointHistoryAdapter(PointHistoryActivity.this, arrayList);
                     recyclerView.setAdapter(adapter);
                 }
