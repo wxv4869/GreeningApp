@@ -92,7 +92,7 @@ public class PointHistoryActivity extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Log.e("PointHistoryActivity, 데이터 로드 오류", String.valueOf(databaseError.toException()));
+                    Log.e("PointHistoryActivity", "데이터 로드 오류 : " + String.valueOf(databaseError.toException()));
                 }
             });
         }

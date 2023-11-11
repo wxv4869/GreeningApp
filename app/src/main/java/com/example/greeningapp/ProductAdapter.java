@@ -14,6 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import org.w3c.dom.Text;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class ProductAdapter  extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder>{
@@ -39,7 +42,7 @@ public class ProductAdapter  extends RecyclerView.Adapter<ProductAdapter.Product
                 .load(arrayList.get(position).getPimg())
                 .into(holder.imageView);
         holder.textName.setText("상품명 :" + arrayList.get(position).getPname());
-        holder.textPrice.setText("가격 :" + String.valueOf(arrayList.get(position).getPprice()));
+        holder.textPrice.setText("가격 : " + String.valueOf(arrayList.get(position).getPprice()));
         holder.textStock.setText("재고수량 : " + String.valueOf(arrayList.get(position).getStock()));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

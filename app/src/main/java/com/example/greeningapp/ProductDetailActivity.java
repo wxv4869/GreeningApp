@@ -38,27 +38,37 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ProductDetailActivity extends AppCompatActivity {
+
     TextView quantity;
     int totalQuantity = 1;
     int totalPrice = 0;
+
     Dialog dialog;
     Dialog dialog2;
+
     private int pid;
+
     ImageView detailedImg;
     ImageView detailedLongImg;
     TextView price, stock, name;
     Button addToCart, buyNow;
     ImageView addItem, removeItem;
+
     Product product = null;
+
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
     private FirebaseAuth auth;
+
+    // 리뷰
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private Button moreReviewsButton;
     private ReviewAdapter adapter;
     private ArrayList<Review> arrayList;
+
     private BottomNavigationView bottomNavigationView;
+
     private int getstock;
 
     @Override
@@ -84,59 +94,84 @@ public class ProductDetailActivity extends AppCompatActivity {
         String cartID = databaseReference.push().getKey();
 
         auth = FirebaseAuth.getInstance();
+        //상품 리스트에서 상품 상세 페이지로 데이터 가져오기
         final Object object = getIntent().getSerializableExtra("detail");
         if(object instanceof Product){
             product = (Product) object;
         }
 
         quantity = findViewById(R.id.quantity);
+
+
         detailedImg = findViewById(R.id.detailed_img);
         addItem = findViewById(R.id.add_item);
         removeItem = findViewById(R.id.remove_item);
         detailedLongImg = findViewById(R.id.detail_longimg);
+
         price = findViewById(R.id.detail_price);
         stock = findViewById(R.id.detail_stock);
+
         name = findViewById(R.id.detailed_name);
 
+        // 숫자에 콤마 표시
         DecimalFormat decimalFormat = new DecimalFormat("###,###");
 
+        // 하단바 구현
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigation_productDetail);
+
+        // 초기 선택 항목 설정
         bottomNavigationView.setSelectedItemId(R.id.tab_shopping);
+
+        // BottomNavigationView의 아이템 클릭 리스너 설정
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == R.id.tab_home) {
+                    // Home 액티비티로 이동
                     startActivity(new Intent(ProductDetailActivity.this, MainActivity.class));
+                    finish();
                     return true;
                 } else if (item.getItemId() == R.id.tab_shopping) {
+                    // Category 액티비티로 이동
                     startActivity(new Intent(ProductDetailActivity.this, CategoryActivity.class));
+                    finish();
                     return true;
                 } else if (item.getItemId() == R.id.tab_donation) {
+                    // Donation 액티비티로 이동
                     startActivity(new Intent(ProductDetailActivity.this, DonationMainActivity.class));
+                    finish();
                     return true;
                 } else if (item.getItemId() == R.id.tab_mypage) {
+                    // My Page 액티비티로 이동
                     startActivity(new Intent(ProductDetailActivity.this, MyPageActivity.class));
+                    finish();
                     return true;
                 }
                 return false;
             }
         });
 
+//        totalQuantity = Integer.parseInt(quantity.getText().toString());
+
         if (product != null) {
             Glide.with(getApplicationContext()).load(product.getPimg()).into(detailedImg);
+//            description.setText(product.getDescription());
             price.setText(String.valueOf(decimalFormat.format(product.getPprice())) + "원");
             stock.setText("( 재고: " + String.valueOf(product.getStock()) + " )");
             name.setText(product.getPname());
             Glide.with(getApplicationContext()).load(product.getPdetailimg()).into(detailedLongImg);
+
             totalPrice= product.getPprice() * totalQuantity;
             decimalFormat.format(totalPrice);
+
             pid = product.getPid();
             getstock = product.getStock();
         }
 
+        // 더 많은 리뷰 보기 버튼 및 리사이클러뷰 초기화
         moreReviewsButton = findViewById(R.id.moreReviewsButton);
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
+        recyclerView = findViewById(R.id.recyclerView);    // 아이디 연결
+        recyclerView.setHasFixedSize(true);    // 리사이클러뷰 기존 성능 강화
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
@@ -148,28 +183,32 @@ public class ProductDetailActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 arrayList.clear();
-                int count = 0;
+                int count = 0;    // 데이터 개수를 세는 변수
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    if (count >= 3)
+                    if (count >= 3)    // 3개의 데이터만 가져오기
                         break;
+
                     Review review = snapshot.getValue(Review.class);
                     arrayList.add(review);
-                    count++;
+                    count++;    // 데이터 개수 증가
                 }
-                adapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();    // 어댑터에 데이터 변경 알림
             }
 
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.e("ProductDetailActivity, 상품 리뷰 데이터 로드 오류", String.valueOf(databaseError.toException()));
+                // DB를 가져오던 중 에러 발생 시
+                Log.e("ProductDetailActivity", String.valueOf(databaseError.toException()));    // 에러문 출력
             }
         });
 
         adapter = new ReviewAdapter(arrayList, this);
         recyclerView.setAdapter(adapter);
 
+        // 더 많은 리뷰 보기 버튼 클릭 시
         moreReviewsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // 리뷰 목록 액티비티로 전환
                 Intent intent = new Intent(ProductDetailActivity.this, ReviewActivity.class);
                 intent.putExtra("pid", pid);
                 startActivity(intent);
@@ -180,6 +219,8 @@ public class ProductDetailActivity extends AppCompatActivity {
         addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                addedToCart();
+
                 if (getstock > 0){
                     final HashMap<String, Object> cartMap = new HashMap<>();
                     FirebaseUser firebaseUser = auth.getCurrentUser();
@@ -199,17 +240,24 @@ public class ProductDetailActivity extends AppCompatActivity {
                         }
                     });
                 } else{
+//                    Toast.makeText(ProductDetailActivity.this, "재고가 부족합니다.", Toast.LENGTH_SHORT).show();
                     showStockDialog();
                 }
+
             }
         });
 
         buyNow = (Button) findViewById(R.id.buyNow);
         buyNow.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View v) {
+
                 if(getstock > 0){
                     Intent intent = new Intent(ProductDetailActivity.this, BuyNowActivity.class);
+
+
 
                     Bundle bundle = new Bundle();
                     bundle.putString("productName", product.getPname());
@@ -223,8 +271,10 @@ public class ProductDetailActivity extends AppCompatActivity {
                     intent.putExtras(bundle);
                     startActivity(intent);
                 } else{
+//                    Toast.makeText(ProductDetailActivity.this, "재고가 부족합니다.", Toast.LENGTH_SHORT).show();
                     showStockDialog();
                 }
+
             }
         });
 
@@ -237,13 +287,14 @@ public class ProductDetailActivity extends AppCompatActivity {
                 }
             }
         });
-
         removeItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (totalQuantity > 1) {
                     totalQuantity--;
                     quantity.setText(String.valueOf(totalQuantity));
+                } else {
+
                 }
             }
         });
@@ -252,7 +303,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
-        if (itemId == android.R.id.home) {
+        if (itemId == android.R.id.home) { //뒤로가기
             onBackPressed();
             return true;
         } else {
@@ -282,7 +333,6 @@ public class ProductDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ProductDetailActivity.this, CartActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
     }
@@ -296,10 +346,13 @@ public class ProductDetailActivity extends AppCompatActivity {
         Button btnOk = dialog2.findViewById(R.id.btn_ok);
         btnOk.setText("확인");
 
+
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog2.dismiss();
+//                Intent intent = new Intent(ProductDetailActivity.this, MainActivity.class);
+//                startActivity(intent);
             }
         });
     }

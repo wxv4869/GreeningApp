@@ -187,6 +187,7 @@ public class RegisterActivity extends AppCompatActivity {
                             Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                             intent.putExtra("userEmail", firebaseUser.getEmail());
                             startActivity(intent);
+                            finish();
                         } else {
                         }
                     }

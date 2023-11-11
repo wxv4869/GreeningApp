@@ -50,7 +50,7 @@ public class PointHistoryAdapter extends RecyclerView.Adapter<PointHistoryAdapte
         }
         String pointNameTextView = myPoint.getPointName();
         if (pointNameTextView.length() > 21) {
-            pointNameTextView = pointNameTextView.substring(0, 27) + "…";
+            pointNameTextView = pointNameTextView.substring(0, 22) + "…";
         }
         holder.pointNameTextView.setText(pointNameTextView);
         holder.pointDateTextView.setText(myPoint.getPointDate());

@@ -18,13 +18,15 @@
             android:id="@+id/donation_img"
             android:layout_width="match_parent"
             android:layout_height="350dp"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="8dp"
+            >
 
             <LinearLayout
                 android:id="@+id/LinearLayout_donation"
@@ -48,18 +50,25 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:layout_width="50dp"
+                    android:layout_width="45dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/round_filled_box"
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:padding="2dp"
-                    android:text="진행 중"
+                    android:text="진행중"
                     android:layout_marginRight="8dp"
                     android:textColor="@color/white"
                     android:textSize="11sp" />
 
+
+
+
+
             </LinearLayout>
+
+
+
 
             <TextView
                 android:id="@+id/donation_start"
@@ -109,5 +118,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
+
+
 
 </LinearLayout>
