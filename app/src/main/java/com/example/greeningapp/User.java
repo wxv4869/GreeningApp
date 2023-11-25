@@ -15,8 +15,7 @@ public class User implements Serializable {
     private String regdate;
     private String doquiz;
 
-    public User() {
-    }
+    public User() {}
 
     public String getUsername() {
         return username;
@@ -105,5 +104,4 @@ public class User implements Serializable {
     public void setDoquiz(String doquiz) {
         this.doquiz = doquiz;
     }
-
 }

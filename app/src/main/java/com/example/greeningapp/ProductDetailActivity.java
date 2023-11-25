@@ -38,7 +38,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ProductDetailActivity extends AppCompatActivity {
-
     TextView quantity;
     int totalQuantity = 1;
     int totalPrice = 0;
@@ -60,7 +59,6 @@ public class ProductDetailActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private FirebaseAuth auth;
 
-    // 리뷰
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private Button moreReviewsButton;
@@ -101,7 +99,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         }
 
         quantity = findViewById(R.id.quantity);
-
 
         detailedImg = findViewById(R.id.detailed_img);
         addItem = findViewById(R.id.add_item);
@@ -151,11 +148,8 @@ public class ProductDetailActivity extends AppCompatActivity {
             }
         });
 
-//        totalQuantity = Integer.parseInt(quantity.getText().toString());
-
         if (product != null) {
             Glide.with(getApplicationContext()).load(product.getPimg()).into(detailedImg);
-//            description.setText(product.getDescription());
             price.setText(String.valueOf(decimalFormat.format(product.getPprice())) + "원");
             stock.setText("( 재고: " + String.valueOf(product.getStock()) + " )");
             name.setText(product.getPname());
@@ -219,8 +213,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                addedToCart();
-
                 if (getstock > 0){
                     final HashMap<String, Object> cartMap = new HashMap<>();
                     FirebaseUser firebaseUser = auth.getCurrentUser();
@@ -240,7 +232,6 @@ public class ProductDetailActivity extends AppCompatActivity {
                         }
                     });
                 } else{
-//                    Toast.makeText(ProductDetailActivity.this, "재고가 부족합니다.", Toast.LENGTH_SHORT).show();
                     showStockDialog();
                 }
 
@@ -249,15 +240,11 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         buyNow = (Button) findViewById(R.id.buyNow);
         buyNow.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(View v) {
 
                 if(getstock > 0){
                     Intent intent = new Intent(ProductDetailActivity.this, BuyNowActivity.class);
-
-
 
                     Bundle bundle = new Bundle();
                     bundle.putString("productName", product.getPname());
@@ -271,10 +258,8 @@ public class ProductDetailActivity extends AppCompatActivity {
                     intent.putExtras(bundle);
                     startActivity(intent);
                 } else{
-//                    Toast.makeText(ProductDetailActivity.this, "재고가 부족합니다.", Toast.LENGTH_SHORT).show();
                     showStockDialog();
                 }
-
             }
         });
 
@@ -287,6 +272,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                 }
             }
         });
+
         removeItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -294,7 +280,6 @@ public class ProductDetailActivity extends AppCompatActivity {
                     totalQuantity--;
                     quantity.setText(String.valueOf(totalQuantity));
                 } else {
-
                 }
             }
         });
@@ -346,13 +331,10 @@ public class ProductDetailActivity extends AppCompatActivity {
         Button btnOk = dialog2.findViewById(R.id.btn_ok);
         btnOk.setText("확인");
 
-
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog2.dismiss();
-//                Intent intent = new Intent(ProductDetailActivity.this, MainActivity.class);
-//                startActivity(intent);
             }
         });
     }
