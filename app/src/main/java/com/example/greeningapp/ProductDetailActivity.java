@@ -1,7 +1,6 @@
 package com.example.greeningapp;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,7 +17,6 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -41,32 +39,24 @@ public class ProductDetailActivity extends AppCompatActivity {
     TextView quantity;
     int totalQuantity = 1;
     int totalPrice = 0;
-
     Dialog dialog;
     Dialog dialog2;
-
     private int pid;
-
     ImageView detailedImg;
     ImageView detailedLongImg;
     TextView price, stock, name;
     Button addToCart, buyNow;
     ImageView addItem, removeItem;
-
     Product product = null;
-
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
     private FirebaseAuth auth;
-
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private Button moreReviewsButton;
     private ReviewAdapter adapter;
     private ArrayList<Review> arrayList;
-
     private BottomNavigationView bottomNavigationView;
-
     private int getstock;
 
     @Override
@@ -92,22 +82,20 @@ public class ProductDetailActivity extends AppCompatActivity {
         String cartID = databaseReference.push().getKey();
 
         auth = FirebaseAuth.getInstance();
-        //상품 리스트에서 상품 상세 페이지로 데이터 가져오기
+
+        //상품 카테고리 페이지에서 상품 상세 페이지로 데이터 가져오기
         final Object object = getIntent().getSerializableExtra("detail");
         if(object instanceof Product){
             product = (Product) object;
         }
 
         quantity = findViewById(R.id.quantity);
-
         detailedImg = findViewById(R.id.detailed_img);
         addItem = findViewById(R.id.add_item);
         removeItem = findViewById(R.id.remove_item);
         detailedLongImg = findViewById(R.id.detail_longimg);
-
         price = findViewById(R.id.detail_price);
         stock = findViewById(R.id.detail_stock);
-
         name = findViewById(R.id.detailed_name);
 
         // 숫자에 콤마 표시
@@ -213,28 +201,31 @@ public class ProductDetailActivity extends AppCompatActivity {
         addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getstock > 0){
-                    final HashMap<String, Object> cartMap = new HashMap<>();
-                    FirebaseUser firebaseUser = auth.getCurrentUser();
-                    cartMap.put("productName", product.getPname());
-                    cartMap.put("productPrice", String.valueOf(product.getPprice()));
-                    cartMap.put("selectedQuantity", totalQuantity);
-                    cartMap.put("totalPrice", totalPrice * totalQuantity);
-                    cartMap.put("pId", product.getPid());
-                    cartMap.put("productImg", product.getPimg());
-                    cartMap.put("productStock", product.getStock());
-                    Log.d("DetailActivity", product.getPid()+"");
+                if (getstock > 0) {
+                    if (totalQuantity <= getstock) {
+                        final HashMap<String, Object> cartMap = new HashMap<>();
+                        FirebaseUser firebaseUser = auth.getCurrentUser();
+                        cartMap.put("productName", product.getPname());
+                        cartMap.put("productPrice", String.valueOf(product.getPprice()));
+                        cartMap.put("selectedQuantity", totalQuantity);
+                        cartMap.put("totalPrice", totalPrice * totalQuantity);
+                        cartMap.put("pId", product.getPid());
+                        cartMap.put("productImg", product.getPimg());
+                        cartMap.put("productStock", product.getStock());
+                        Log.d("DetailActivity", product.getPid() + "");
 
-                    databaseReference.child(firebaseUser.getUid()).child("AddToCart").child(cartID).setValue(cartMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            showDialog();
-                        }
-                    });
-                } else{
+                        databaseReference.child(firebaseUser.getUid()).child("AddToCart").child(cartID).setValue(cartMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                showDialog();
+                            }
+                        });
+                    } else {
+                        showImpossibleDialog();
+                    }
+                } else {
                     showStockDialog();
                 }
-
             }
         });
 
@@ -242,22 +233,25 @@ public class ProductDetailActivity extends AppCompatActivity {
         buyNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(getstock > 0) {
+                    if (totalQuantity <= getstock) {
+                        Intent intent = new Intent(ProductDetailActivity.this, BuyNowActivity.class);
 
-                if(getstock > 0){
-                    Intent intent = new Intent(ProductDetailActivity.this, BuyNowActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("productName", product.getPname());
+                        bundle.putString("productPrice", String.valueOf(product.getPprice()));
+                        bundle.putInt("selectedQuantity", totalQuantity);
+                        bundle.putInt("totalPrice", totalPrice * totalQuantity);
+                        bundle.putInt("pId", product.getPid());
+                        bundle.putString("productImg", product.getPimg());
+                        bundle.putInt("productStock", product.getStock());
 
-                    Bundle bundle = new Bundle();
-                    bundle.putString("productName", product.getPname());
-                    bundle.putString("productPrice", String.valueOf(product.getPprice()));
-                    bundle.putInt("selectedQuantity", totalQuantity);
-                    bundle.putInt("totalPrice", totalPrice * totalQuantity);
-                    bundle.putInt("pId", product.getPid());
-                    bundle.putString("productImg", product.getPimg());
-                    bundle.putInt("productStock", product.getStock());
-
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                } else{
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    } else {
+                        showImpossibleDialog();
+                    }
+                } else {
                     showStockDialog();
                 }
             }
@@ -284,6 +278,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             }
         });
     }
+
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -326,7 +321,24 @@ public class ProductDetailActivity extends AppCompatActivity {
         dialog2.show();
 
         TextView confirmTextView = dialog2.findViewById(R.id.confirmTextView);
-        confirmTextView.setText("재고가 부족합니다.");
+        confirmTextView.setText("해당 상품은 현재 일시 품절입니다.");
+
+        Button btnOk = dialog2.findViewById(R.id.btn_ok);
+        btnOk.setText("확인");
+
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog2.dismiss();
+            }
+        });
+    }
+
+    public void showImpossibleDialog() {
+        dialog2.show();
+
+        TextView confirmTextView = dialog2.findViewById(R.id.confirmTextView);
+        confirmTextView.setText("현재 구매 가능 개수는\n" + getstock + "개입니다.");
 
         Button btnOk = dialog2.findViewById(R.id.btn_ok);
         btnOk.setText("확인");
