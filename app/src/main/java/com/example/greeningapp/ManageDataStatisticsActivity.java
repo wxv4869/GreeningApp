@@ -38,17 +38,20 @@ public class ManageDataStatisticsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_data_statistics);
 
+        // 툴바 설정
         Toolbar mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // 레이아웃 요소
         BarChart barChart = findViewById(R.id.barChart);
 
+        // 파이어베이스 설정
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Product");
 
-        // firebase 데이터를 가져오느 이벤트 리스너 등록
+        // firebase 데이터를 가져오는 이벤트 리스너 등록
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -57,8 +60,8 @@ public class ManageDataStatisticsActivity extends AppCompatActivity {
 
                 // 데이터 스냅샷에서 상품 데이터 추출
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    String pname = snapshot.child("pname").getValue(String.class);    // 상품명 데이터 추출
-                    int populstock = snapshot.child("populstock").getValue(Integer.class);    // 판매량 데이터 추출
+                    String pname = snapshot.child("pname").getValue(String.class);  // 상품명 데이터 추출
+                    int populstock = snapshot.child("populstock").getValue(Integer.class);  // 판매량 데이터 추출
 
                     // 추출한 데이터를 상품 데이터 리스트에 추가
                     productEntries.add(new Pair<>(pname, populstock));
@@ -113,12 +116,13 @@ public class ManageDataStatisticsActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                // 통계 데이터 로드 오류 시 에러 메세지 출력
                 Log.e("ManageDataStatisticsActivity, 통계 데이터 로드 오류", String.valueOf(databaseError.toException()));
             }
         });
     }
 
-    // 차트에 표시할 데이터 entry 생성 메서드
+    // 차트에 표시할 데이터 entry 생성 메소드
     private List<BarEntry> createBarEntries(List<Pair<String, Integer>> pairList) {
         List<BarEntry> barEntries = new ArrayList<>();
         for (int i = 0; i < pairList.size(); i++) {
@@ -128,7 +132,7 @@ public class ManageDataStatisticsActivity extends AppCompatActivity {
         return barEntries;
     }
 
-    // x축 레이블을 가져오는 메서드
+    // x축 레이블을 가져오는 메소드
     private List<String> getXAxisLabels(List<Pair<String, Integer>> pairList) {
         List<String> xAxisLabels = new ArrayList<>();
         for (Pair<String, Integer> pair : pairList) {
@@ -137,6 +141,7 @@ public class ManageDataStatisticsActivity extends AppCompatActivity {
         return xAxisLabels;
     }
 
+    // 뒤로가기 처리
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == android.R.id.home) {
