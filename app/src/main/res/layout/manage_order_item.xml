@@ -20,7 +20,6 @@
             android:orientation="horizontal"
             android:layout_marginTop="2dp">
 
-
             <TextView
                 android:id="@+id/MGOrderID_order"
                 android:layout_width="wrap_content"
@@ -30,14 +29,12 @@
                 android:textSize="14sp"
                 android:textColor="@color/black"
                 android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                />
+                android:layout_marginTop="8dp" />
 
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="1" />
-
 
             <TextView
                 android:id="@+id/MGOrderDate_order"
@@ -51,8 +48,6 @@
                 android:layout_marginTop="8dp"/>
 
         </LinearLayout>
-
-
 
     </LinearLayout>
 
@@ -81,6 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/MGEachOrderId_order"
                     android:layout_width="match_parent"
@@ -89,12 +85,14 @@
                     android:gravity="left"
                     android:textSize="14sp"
                     android:textColor="@color/textColorGray"/>
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/MGProductName_order"
                     android:layout_width="match_parent"
@@ -103,6 +101,7 @@
                     android:gravity="left"
                     android:textSize="14sp"
                     android:textColor="@color/black"/>
+
             </LinearLayout>
 
             <LinearLayout
@@ -111,7 +110,6 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="2dp">
 
-
                 <TextView
                     android:id="@+id/MGOrderPrice_order"
                     android:layout_width="wrap_content"
@@ -119,8 +117,7 @@
                     android:text="Product price"
                     android:gravity="left"
                     android:textSize="14sp"
-                    android:textColor="@color/black"
-                    />
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -129,8 +126,7 @@
                     android:gravity="left"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
-                    />
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/MGOrderStock_order"
@@ -141,7 +137,6 @@
                     android:textColor="@color/black"/>
 
             </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -156,19 +151,16 @@
                     android:gravity="left"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
-                    />
+                    android:textColor="@color/black" />
 
                 <TextView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=" | "
                     android:gravity="left"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
-                    />
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/MGOrderState_order"
@@ -178,11 +170,12 @@
                     android:gravity="left"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
-                    />
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
+                    android:textColor="@color/black" />
 
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

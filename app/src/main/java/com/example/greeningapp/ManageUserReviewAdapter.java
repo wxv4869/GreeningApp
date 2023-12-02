@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,13 +30,10 @@ import java.util.ArrayList;
 public class ManageUserReviewAdapter extends RecyclerView.Adapter<ManageUserReviewAdapter.ManageUserReviewViewHolder> {
     private ArrayList<Review> arrayList;
     private Context context;
-
     FirebaseDatabase firebaseDatabase;
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
-
     Dialog dialog;
-
 
     public ManageUserReviewAdapter(ArrayList<Review> arrayList, Context context){
         this.arrayList = arrayList;
@@ -53,9 +50,18 @@ public class ManageUserReviewAdapter extends RecyclerView.Adapter<ManageUserRevi
 
     @Override
     public void onBindViewHolder(@NonNull ManageUserReviewAdapter.ManageUserReviewViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        Glide.with(holder.itemView)
-                .load(arrayList.get(position).getRimage())
-                .into(holder.MGReviewInputimg_review);
+
+        if (arrayList.get(position).getRimage() != null && !arrayList.get(position).getRimage().isEmpty()) {
+            // 이미지가 있는 경우 표시
+            holder.MGReviewInputimg_review.setVisibility(View.VISIBLE);
+            Glide.with(holder.itemView)
+                    .load(arrayList.get(position).getRimage())
+                    .into(holder.MGReviewInputimg_review);
+        } else {
+            // 이미지가 없는 경우 숨김
+            holder.MGReviewInputimg_review.setVisibility(View.GONE);
+        }
+
         holder.MGOrderID_order.setText(arrayList.get(position).getReviewid());
         holder.MGReviewDate_review.setText(arrayList.get(position).getRdatetime());
         holder.MGReviewUsername_review.setText(arrayList.get(position).getUsername());
@@ -104,23 +110,16 @@ public class ManageUserReviewAdapter extends RecyclerView.Adapter<ManageUserRevi
                                             ((ManageUserReviewActivity)context).overridePendingTransition(0, 0); //효과 없애기
                                             ((ManageUserReviewActivity)context).startActivity(intent); //현재 액티비티 재실행 실시
                                             ((ManageUserReviewActivity)context).overridePendingTransition(0, 0); //효과 없애기
-//                                    ((CartActivity) context).recreate();
-//                                    Toast.makeText(context, "item Delete", Toast.LENGTH_SHORT).show();
                                         } else {
-//                                    Toast.makeText(context, "Error" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });
                     }
                 });
-
-
-
             }
         });
 
         holder.MGReviewUserrating_review.setRating(arrayList.get(position).getRscore());
-
     }
 
     @Override

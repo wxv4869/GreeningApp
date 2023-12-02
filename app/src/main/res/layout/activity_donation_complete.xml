@@ -47,7 +47,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_donation">
 
-
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -73,7 +72,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-
                 android:text="총 0씨드로"
                 android:textAlignment="center"
                 android:textColor="@color/subColor"
@@ -127,6 +125,7 @@
                 android:layout_marginLeft="16dp"
                 android:text="기부명"
                 android:textSize="14sp" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -156,6 +155,7 @@
                 android:layout_gravity="right"
                 android:text="기부일자"
                 android:textSize="14sp"/>
+
         </LinearLayout>
 
         <LinearLayout
@@ -221,6 +221,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottommenu" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

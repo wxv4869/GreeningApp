@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- 아래 -->
     <item android:top="2dp">
         <shape>
             <solid android:color="#00000000" />
@@ -9,7 +8,6 @@
                 android:color="#DADADA" />
         </shape>
     </item>
-    <!-- 위 -->
     <item android:bottom="2dp">
         <shape>
             <solid android:color="#00000000" />

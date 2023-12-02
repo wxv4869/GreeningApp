@@ -4,30 +4,24 @@
     <color name="white">#FFFFFFFF</color>
     <color name="toolbar">#FFFFFF</color>
     <color name="mainColor">#205107</color>
-    <!--    <color name="textColorGray">#919191</color>-->
     <color name="textColorGray">#A0A0A0</color>
     <color name="textGray">#808080</color>
     <color name="gray">#DADADA</color>
     <color name="textgray">#404040</color>
-
-
     <color name="subColor">#377028</color>
     <color name="back">#F1F1F1</color>
     <color name="btn">#94B58B</color>
-
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#1976D2</color>
     <color name="colorAccent">#FF5252</color>
     <color name="colorPrimaryText">#212121</color>
     <color name="colorSecondaryText">#757575</color>
     <color name="colorDivider">#ECECEC</color>
-
     <color name="green_Color">#1B8E20</color>
     <color name="main_color">#B4D9A9</color>
     <color name="sub1">#B4D9A9</color>
     <color name="sub2">#94B58B</color>
     <color name="sub4">#C6EDC2</color>
     <color name="sub5">#EBF7F0</color>
-
     <color name="ordh_btn_click">#BBBBBB</color>
 </resources>

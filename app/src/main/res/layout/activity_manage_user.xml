@@ -54,7 +54,6 @@
 
         </ScrollView>
 
-
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnManageMain_User"
             android:layout_width="match_parent"
@@ -64,7 +63,7 @@
             android:layout_marginBottom="8dp"
             android:text="관리자 홈으로 이동"
             android:textStyle="bold" />
-    </LinearLayout>
 
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

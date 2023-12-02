@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:textSize="18sp"/>
+
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -45,4 +46,5 @@
         app:itemTextColor="@drawable/menu_selector_color"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottommenu" />
+
 </LinearLayout>

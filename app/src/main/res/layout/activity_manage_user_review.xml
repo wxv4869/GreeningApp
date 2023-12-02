@@ -50,7 +50,6 @@
 
         </ScrollView>
 
-
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnManageMain_Review"
             android:layout_marginLeft="8dp"
@@ -60,6 +59,7 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:text="관리자 홈으로 이동" />
+
     </LinearLayout>
 
 </LinearLayout>

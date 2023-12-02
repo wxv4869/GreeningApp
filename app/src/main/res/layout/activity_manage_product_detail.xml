@@ -26,15 +26,6 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/textView3"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="상품 정보 수정"-->
-    <!--        android:gravity="center"-->
-    <!--        android:layout_marginTop="50dp"-->
-    <!--        android:textSize="20dp" />-->
-
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
@@ -68,6 +59,7 @@
                     android:id="@+id/ModifyPid"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -86,6 +78,7 @@
                     android:id="@+id/ModifyCategoryId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -105,6 +98,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="클릭해서 이미지를 삽입하세요." />
+
             </LinearLayout>
 
             <LinearLayout
@@ -124,6 +118,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="클릭해서 이미지를 삽입하세요." />
+
             </LinearLayout>
 
             <LinearLayout
@@ -143,6 +138,7 @@
                     android:id="@+id/ModifyPname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -161,13 +157,13 @@
                     android:id="@+id/ModifyPPrice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-
                 android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -183,13 +179,13 @@
                     android:id="@+id/ModifyPPopulstock"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -202,6 +198,7 @@
                     android:id="@+id/ModifyPsay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
             </LinearLayout>
 
 
@@ -209,7 +206,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -222,26 +218,8 @@
                     android:id="@+id/ModifyStock"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
             </LinearLayout>
-
-            <!--            <LinearLayout-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginTop="16dp"-->
-
-            <!--                android:gravity="center"-->
-            <!--                android:orientation="horizontal">-->
-
-            <!--                <TextView-->
-            <!--                    android:layout_width="wrap_content"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:text="서비스 상태 : " />-->
-
-            <!--                <EditText-->
-            <!--                    android:id="@+id/ModifyService"-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="wrap_content" />-->
-            <!--            </LinearLayout>-->
 
         </LinearLayout>
 
@@ -278,5 +256,7 @@
             android:text="상품 정보 수정"
             android:textSize="14sp"
             android:textStyle="bold" />
+
     </LinearLayout>
+
 </LinearLayout>

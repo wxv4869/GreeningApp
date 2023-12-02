@@ -26,19 +26,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!--            <TextView-->
-                <!--                android:id="@+id/reviewTool"-->
-                <!--                android:layout_width="match_parent"-->
-                <!--                android:layout_height="50dp"-->
-                <!--                android:layout_gravity="center"-->
-                <!--                android:gravity="center"-->
-                <!--                android:textSize="20dp"-->
-                <!--                android:text="후기작성"/>-->
-
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar_reviewwrite"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="65dp"
                     android:background="@color/white"
                     android:minHeight="?attr/actionBarSize"
                     android:theme="?attr/actionBarTheme"
@@ -50,8 +41,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:textSize="18sp"
-                        android:text="리뷰 작성">
-                    </TextView>
+                        android:text="리뷰 작성" />
+
                 </androidx.appcompat.widget.Toolbar>
 
                 <TextView
@@ -61,7 +52,6 @@
                     android:gravity="center"
                     android:textSize="16sp"
                     android:text=""/>
-
 
                 <ImageView
                     android:id="@+id/writePImg"
@@ -78,7 +68,6 @@
                     android:gravity="center"
                     android:textSize="16sp"
                     android:text="상품명"/>
-
 
                 <TextView
                     android:layout_width="match_parent"
@@ -110,6 +99,7 @@
                     android:text="리뷰 작성하기"/>
 
                 <EditText
+                    android:layout_marginTop="8dp"
                     android:id="@+id/writeReviewEt"
                     android:layout_width="match_parent"
                     android:layout_height="170dp"
@@ -148,29 +138,6 @@
                     android:layout_height="60dp"
                     android:orientation="horizontal">
 
-                    <!--                <Button-->
-                    <!--                    android:id="@+id/writeCancelBtn"-->
-                    <!--                    android:layout_width="wrap_content"-->
-                    <!--                    android:layout_height="wrap_content"-->
-                    <!--                    android:layout_weight="5"-->
-                    <!--                    android:textSize="16sp"-->
-                    <!--                    android:gravity="center"-->
-                    <!--                    android:text="취소">-->
-
-                    <!--                </Button>-->
-
-                    <!--                    <Button-->
-                    <!--                        android:id="@+id/writeUploadBtn"-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="60dp"-->
-                    <!--                        android:layout_weight="5"-->
-                    <!--                        android:textSize="18sp"-->
-                    <!--                        android:gravity="center"-->
-                    <!--                        android:background="@color/mainColor"-->
-                    <!--                        android:layout_margin="8dp"-->
-                    <!--                        android:onClick="onClick"-->
-                    <!--                        android:text="후기 등록하기"></Button>-->
-
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/writeUploadBtn"
                         android:layout_width="match_parent"
@@ -182,7 +149,7 @@
                         android:textColor="@color/white"
                         android:layout_margin="8dp"
                         android:onClick="onClick"
-                        android:text="후기 등록하기"></androidx.appcompat.widget.AppCompatButton>
+                        android:text="후기 등록하기" />
 
                 </LinearLayout>
 
@@ -205,7 +172,5 @@
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottommenu" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package com.example.greeningapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -183,7 +184,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             }
         });
 
-        adapter = new ReviewAdapter(arrayList, this);
+        adapter = new ReviewAdapter(arrayList, FirebaseAuth.getInstance(), FirebaseDatabase.getInstance().getReference("User"));
         recyclerView.setAdapter(adapter);
 
         // 더 많은 리뷰 보기 버튼 클릭 시

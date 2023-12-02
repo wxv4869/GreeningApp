@@ -9,11 +9,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingRight="12dp"
+        android:paddingRight="8dp"
         android:paddingLeft="12dp"
-        android:paddingTop="4dp"
-        android:paddingBottom="8dp"
-        >
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp">
 
         <ImageView
             android:id="@+id/searchpimg"
@@ -45,7 +44,6 @@
             android:textColor="@color/textColorGray"
             android:textSize="12sp" />
 
-
         <TextView
             android:id="@+id/searchpprice"
             android:layout_width="match_parent"
@@ -60,4 +58,14 @@
             android:textStyle="bold" />
 
     </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@color/gray"
+        android:layout_gravity="bottom"/>
+
 </androidx.cardview.widget.CardView>

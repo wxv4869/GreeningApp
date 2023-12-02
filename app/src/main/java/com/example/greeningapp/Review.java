@@ -3,24 +3,20 @@ public class Review {
     private String rimage;
     private String rcontent;
     private float rscore;
-
     private String pname;
     private int pid;
     private  String pimg;
     private String rdatetime;
     private String username;
-
     private String pprice;
-
     private int totalquantity;
-
     private String reviewid;
+    private String idToken;
+    private User user;
 
     public Review() {
 
     }
-
-
 
     public String getRimage() {
         return rimage;
@@ -103,5 +99,17 @@ public class Review {
 
     public void setReviewid(String reviewid) {
         this.reviewid = reviewid;
+    }
+
+    public String getIdToken() { return idToken; }
+
+    public void setIdToken(String idToken) { this.idToken = idToken; }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

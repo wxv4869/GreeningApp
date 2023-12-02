@@ -3,6 +3,5 @@
     <item
         android:drawable="@drawable/shopping_cart_logo"
         android:width="26dp"
-        android:height="26dp"
-        />
+        android:height="26dp" />
 </layer-list>

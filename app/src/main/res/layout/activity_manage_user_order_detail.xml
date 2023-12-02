@@ -26,15 +26,6 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/textView3"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="회원 주문 상세 정보"-->
-    <!--        android:gravity="center"-->
-    <!--        android:layout_marginTop="50dp"-->
-    <!--        android:textSize="20dp" />-->
-
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
@@ -68,13 +59,13 @@
                     android:id="@+id/MGOrderName_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -87,6 +78,7 @@
                     android:id="@+id/MGUserIDToken_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -105,6 +97,7 @@
                     android:id="@+id/MGOrderID_detail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -122,16 +115,14 @@
                 <TextView
                     android:id="@+id/MGEachOrderID_detail"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
-            </LinearLayout>
+                    android:layout_height="wrap_content" />
 
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -144,13 +135,13 @@
                     android:id="@+id/MGOrderDate_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -163,6 +154,7 @@
                     android:id="@+id/MGOrderProductID_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -180,15 +172,14 @@
                 <TextView
                     android:id="@+id/MGOrderProductName_detail"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
+                    android:layout_height="wrap_content" />
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -201,6 +192,7 @@
                     android:id="@+id/MGProductPrice_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -219,6 +211,7 @@
                     android:id="@+id/MGOrderStock_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -237,6 +230,7 @@
                     android:id="@+id/MGOrderTotalPrice_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -255,13 +249,13 @@
                     android:id="@+id/MGOverTotalPrice_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -274,13 +268,13 @@
                     android:id="@+id/MGOrderPhone_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -293,13 +287,13 @@
                     android:id="@+id/MGOrderPostcode_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -312,13 +306,13 @@
                     android:id="@+id/MGOrderAddress_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -331,13 +325,13 @@
                     android:id="@+id/MGOrderState_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -350,12 +344,12 @@
                     android:id="@+id/MGOrderDoReview_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
             </LinearLayout>
 
         </LinearLayout>
 
     </ScrollView>
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -388,6 +382,7 @@
             android:text="배송 완료 처리"
             android:textSize="14sp"
             android:textStyle="bold" />
+
     </LinearLayout>
 
 </LinearLayout>

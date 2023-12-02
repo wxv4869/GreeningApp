@@ -79,6 +79,7 @@
                     android:textColor="@color/textGray"
                     android:layout_marginLeft="8dp"
                     android:gravity="left" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -95,6 +96,7 @@
                     android:textSize="15sp"
                     android:textStyle="bold"
                     android:gravity="left"/>
+
             </LinearLayout>
 
         </LinearLayout>

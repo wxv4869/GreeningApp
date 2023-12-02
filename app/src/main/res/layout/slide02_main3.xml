@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="155dp"
         android:gravity="center"
-        android:background="@drawable/small3"
-        />
+        android:background="@drawable/small3" />
 
 </LinearLayout>

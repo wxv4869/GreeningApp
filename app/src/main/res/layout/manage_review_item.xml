@@ -8,21 +8,11 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <!--    <View-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="1dp"-->
-    <!--        android:layout_centerInParent="true"-->
-    <!--        android:layout_marginTop="15dp"-->
-    <!--        android:layout_marginLeft="5dp"-->
-    <!--        android:layout_marginRight="5dp"-->
-    <!--        android:background="#27514949"/>-->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:layout_marginTop="2dp">
-
 
         <TextView
             android:id="@+id/MGOrderID_order"
@@ -33,14 +23,12 @@
             android:textSize="14sp"
             android:textColor="@color/black"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            />
+            android:layout_marginTop="8dp" />
 
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1" />
-
 
         <TextView
             android:id="@+id/MGReviewDate_review"
@@ -54,7 +42,6 @@
             android:layout_marginTop="8dp"/>
 
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -83,8 +70,7 @@
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:layout_marginTop="3dp"
-                    />
+                    android:layout_marginTop="3dp" />
 
                 <TextView
                     android:id="@+id/MGReviewProductName_review"
@@ -94,12 +80,14 @@
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:layout_marginTop="4dp"/>
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="end">
+
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/MGRemoveReview_review"
                     android:layout_width="wrap_content"
@@ -108,11 +96,12 @@
                     android:text="후기 삭제"
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    android:onClick="onReviewButtonClick">
-                </androidx.appcompat.widget.AppCompatButton>
+                    android:onClick="onReviewButtonClick" />
+
             </LinearLayout>
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -128,8 +117,8 @@
                 android:numStars="5"
                 android:progressTint="@android:color/holo_orange_light"
                 android:rating="4.5"
-                android:layout_marginLeft="12dp">
-            </RatingBar>
+                android:layout_marginLeft="12dp" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -138,6 +127,7 @@
             android:orientation="vertical"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -145,13 +135,15 @@
                 <ImageView
                     android:id="@+id/MGReviewInputimg_review"
                     android:layout_width="100dp"
-                    android:layout_height="100dp"></ImageView>
+                    android:layout_height="100dp" />
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp">
+
                 <TextView
                     android:id="@+id/MGReviewReviewdes_review"
                     android:layout_width="match_parent"
@@ -160,14 +152,12 @@
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:layout_marginLeft="12dp"
-                    android:layout_marginRight="12dp">
-
-                </TextView>
+                    android:layout_marginRight="12dp" />
 
             </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>
-
 
 </LinearLayout>

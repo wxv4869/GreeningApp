@@ -22,8 +22,8 @@
             android:textColor="@color/black"
             android:textSize="18sp"
             android:includeFontPadding="false"
-            android:layout_gravity="center"
-            />
+            android:layout_gravity="center" />
+
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
@@ -95,6 +95,7 @@
                 android:layout_marginBottom="16dp"
                 android:text="기부 내역, 상품 구매 내역 등의 데이터가 영구히 삭제되며 복구가 불가합니다."
                 android:textSize="14sp" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -146,7 +147,11 @@
                     android:background="@drawable/custom_btn"
                     android:text="탈퇴하기"
                     android:stateListAnimator="@null"/>
+
             </LinearLayout>
+
         </LinearLayout>
+
     </LinearLayout>
+
 </LinearLayout>

@@ -3,6 +3,5 @@
     <item
         android:drawable="@drawable/search_logo"
         android:width="23dp"
-        android:height="23dp"
-        />
+        android:height="23dp" />
 </layer-list>
