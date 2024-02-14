@@ -89,6 +89,11 @@
 ![데이터4](https://github.com/wxv4869/GreeningApp/assets/89888817/06121f18-0ee9-48a4-8922-b3178cd4ca63)
 <br><br>
 
+## 수상 실적
+* 한양여자대학교 스마트IT과 2023 캡스톤디자인 장려상
+* 4차 산업혁명 기반 2023년 창의융합형 인재양성 공모전 캡스톤디자인산출물 분야 최우수상
+<br><br>
+
 ## 시연 영상
 https://youtu.be/NgsgbAHVySk
 
