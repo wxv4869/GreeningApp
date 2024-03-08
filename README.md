@@ -9,7 +9,7 @@
 2. <a href="#02-팀-구성">팀 구성</a>
 3. <a href="#03-서비스-개요">서비스 개요</a>
 4. <a href="#04-프로젝트-기여-부분">프로젝트 기여 부분</a>
-5. <a href="#05-개발-환경-및-기술-스택">개발 환경 및 기술 스택</a>
+5. <a href="#05-개발-환경-및-사용-기술">개발 환경 및 사용 기술</a>
 6. <a href="#06-사이트맵">사이트맵</a>
 7. <a href="#07-주요-기능">주요 기능</a>
 8. <a href="#08-db-firebase">DB (Firebase)</a>
@@ -48,13 +48,13 @@
 * 로고, 광고 배너, 어플 mock up 디자인
 <br><br>
 
-## 05 개발 환경 및 기술 스택
+## 05 개발 환경 및 사용 기술
 * Android Studio(Java)
 * Python(Data Visualization)
 * Firebase(Realtime Database)
 * Figma
 * GitHub
-* Slack
+* Slack, zoom, 카카오톡
 <br><br>
 
 ## 06 사이트맵
